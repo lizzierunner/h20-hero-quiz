@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H2O Hero Quiz - Save the World, One Drop at a Time!</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Audio Elements -->
+    <audio id="successSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBStPp+DxtWEcCS6S1/LNeCsFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBS2R1+7Pdy0FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1/DOeC4FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkT" type="audio/wav">
+    </audio>
+    <audio id="errorSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBStPp+DxtWEcCS6S1/LNeCsFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBS2R1+7Pdy0FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1/DOeC4FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkT" type="audio/wav">
+    </audio>
+    <audio id="levelUpSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBStPp+DxtWEcCS6S1/LNeCsFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBS2R1+7Pdy0FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1/DOeC4FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkT" type="audio/wav">
+    </audio>
+
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="welcome-card">
+            <div class="welcome-header">
+                <h1>💧 H2O Hero Quiz 💧</h1>
+                <p class="subtitle">Save the World, One Drop at a Time!</p>
+            </div>
+            <div class="welcome-content">
+                <div class="hero-image">🌍</div>
+                <p class="description">
+                    Join charity:water's mission to bring clean water to everyone. 
+                    Test your knowledge about water access, learn amazing facts, 
+                    and become a real H2O Hero!
+                </p>
+                <div class="stats-preview">
+                    <div class="stat">
+                        <span class="stat-number">771M</span>
+                        <span class="stat-label">People without clean water</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2.2B</span>
+                        <span class="stat-label">People without basic sanitation</span>
+                    </div>
+                </div>
+            </div>
+            <button class="start-btn" onclick="startGame()">Start Your Mission 🚀</button>
+        </div>
+    </div>
+
+    <!-- Character Creation Screen -->
+    <div id="character-creation-screen" class="screen">
+        <div class="creation-container">
+            <div class="creation-header">
+                <h1>🎭 Create Your H2O Hero</h1>
+                <p>Choose your character and name to begin your water mission!</p>
+            </div>
+
+            <div class="progress-steps">
+                <div class="step active" data-step="avatar">
+                    <span class="step-number">1</span>
+                    <span class="step-label">Avatar</span>
+                </div>
+                <div class="step" data-step="name">
+                    <span class="step-number">2</span>
+                    <span class="step-label">Name</span>
+                </div>
+                <div class="step" data-step="confirm">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Confirm</span>
+                </div>
+            </div>
+
+            <div class="character-creation" id="character-creation">
+                
+                <!-- Step 1: Avatar Selection -->
+                <div class="creation-step active" id="avatar-step">
+                    <h2>🎭 Choose Your Avatar</h2>
+                    <div class="magic-sparkles"></div>
+                    <div class="avatar-grid">
+                        <div class="avatar-option" onclick="selectAvatar('water-mage')" data-tooltip="Water Mage: Harnesses the power of clean water magic to bring life-giving sources to communities worldwide, specializing in charity:water's mission">
+                            <div class="avatar-image">🧙‍♂️</div>
+                            <span class="avatar-name">Water Mage</span>
+                        </div>
+                        <div class="avatar-option" onclick="selectAvatar('ocean-warrior')" data-tooltip="Ocean Warrior: Fierce protector fighting the water crisis with charity:water, bringing hope and clean water to the world's most vulnerable communities">
+                            <div class="avatar-image">⚔️</div>
+                            <span class="avatar-name">Ocean Warrior</span>
+                        </div>
+                        <div class="avatar-option" onclick="selectAvatar('hydro-engineer')" data-tooltip="Hydro Engineer: Brilliant builder of charity:water projects, designing wells, pumps, and water systems that serve communities for decades">
+                            <div class="avatar-image">👷‍♂️</div>
+                            <span class="avatar-name">Hydro Engineer</span>
+                        </div>
+                        <div class="avatar-option" onclick="selectAvatar('rain-shaman')" data-tooltip="Rain Shaman: Ancient wisdom keeper partnering with charity:water to understand local water needs and sustainable community solutions">
+                            <div class="avatar-image">🌧️</div>
+                            <span class="avatar-name">Rain Shaman</span>
+                        </div>
+                        <div class="avatar-option" onclick="selectAvatar('aqua-scientist')" data-tooltip="Aqua Scientist: Research expert testing water quality and developing new technologies for charity:water's global clean water initiatives">
+                            <div class="avatar-image">👩‍🔬</div>
+                            <span class="avatar-name">Aqua Scientist</span>
+                        </div>
+                        <div class="avatar-option" onclick="selectAvatar('tide-ranger')" data-tooltip="Tide Ranger: Swift guardian monitoring charity:water projects with GPS technology, ensuring every donation creates lasting impact">
+                            <div class="avatar-image">🏹</div>
+                            <span class="avatar-name">Tide Ranger</span>
+                        </div>
+                        <div class="avatar-option" onclick="selectAvatar('bubble-guardian')" data-tooltip="Bubble Guardian: Gentle protector maintaining water purity in charity:water communities, ensuring safe drinking water for families">
+                            <div class="avatar-image">💧</div>
+                            <span class="avatar-name">Bubble Guardian</span>
+                        </div>
+                        <div class="avatar-option" onclick="selectAvatar('wave-rider')" data-tooltip="Wave Rider: Adventurous advocate spreading charity:water's message, inspiring others to join the mission of water for all">
+                            <div class="avatar-image">🏄‍♂️</div>
+                            <span class="avatar-name">Wave Rider</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Name Selection -->
+                <div class="creation-step" id="name-step">
+                    <h2>📝 Choose Your Hero Name</h2>
+                    <div class="name-selection">
+                        <div class="name-options">
+                            <button class="name-btn" onclick="selectPresetName('Aqua Avenger')">🌊 Aqua Avenger</button>
+                            <button class="name-btn" onclick="selectPresetName('Droplet Defender')">💧 Droplet Defender</button>
+                            <button class="name-btn" onclick="selectPresetName('Splash Captain')">🌊 Splash Captain</button>
+                            <button class="name-btn" onclick="selectPresetName('Hydro Guardian')">💪 Hydro Guardian</button>
+                        </div>
+                        
+                        <div class="custom-name">
+                            <input type="text" id="custom-hero-name" placeholder="Or create your own hero name..." maxlength="20">
+                            <button onclick="selectCustomName()">Create Hero</button>
+                        </div>
+                        
+                        <div class="name-preview" id="name-preview" style="display: none;">
+                            <div class="preview-card">
+                                <div class="preview-avatar" id="preview-avatar">🧙‍♂️</div>
+                                <div class="preview-name" id="preview-name">Hero Name</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="step-btn disabled" id="name-continue-btn" onclick="continueToConfirm()" disabled>Continue ➡️</button>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div class="creation-step" id="confirm-step">
+                    <h2>✨ Your H2O Hero is Ready!</h2>
+                    <div class="hero-confirmation">
+                        <div class="final-hero-card">
+                            <div class="final-avatar" id="final-avatar">🧙‍♂️</div>
+                            <div class="final-details">
+                                <h3 id="final-name">Hero Name</h3>
+                                <p id="final-class">Water Mage</p>
+                                <div class="hero-stats">
+                                    <div class="stat">
+                                        <span class="stat-label">Level</span>
+                                        <span class="stat-value">1</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">XP</span>
+                                        <span class="stat-value">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">Mission</span>
+                                        <span class="stat-value">Water Hero</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mission-brief">
+                            <h4>🎯 Your Mission</h4>
+                            <p>As a charity:water hero, you'll answer questions about global water access, learn incredible facts, and help raise awareness about the water crisis. Every correct answer brings you closer to becoming a true H2O Hero!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="final-buttons">
+                        <button class="step-btn secondary" onclick="goBackToName()">← Go Back</button>
+                        <button class="step-btn primary" onclick="confirmAndStart()">Start Mission! 🚀</button>
+                    </div>
+                </div>
+
+                <div class="floating-text" id="floating-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-interface">
+            <!-- Game Header -->
+            <div class="game-header">
+                <div class="hero-info">
+                    <div class="hero-avatar" id="game-avatar">🧙‍♂️</div>
+                    <div class="hero-details">
+                        <h3 id="game-hero-name">Hero Name</h3>
+                        <p id="game-hero-class">Water Mage</p>
+                    </div>
+                </div>
+                
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Level</span>
+                        <span class="stat-value" id="hero-level">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">XP</span>
+                        <span class="stat-value" id="hero-xp">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Progress</span>
+                        <span class="stat-value"><span id="current-question">1</span>/<span id="total-questions">10</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                    <div class="progress-text" id="progress-text">Question 1 of 10</div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="question-card" id="question-card">
+                <div class="question-header">
+                    <h2 id="question-title">Loading question...</h2>
+                </div>
+                
+                <div class="question-content">
+                    <div class="question-image" id="question-image">💧</div>
+                    <div class="question-text" id="question-text">
+                        Please wait while we load your first question...
+                    </div>
+                </div>
+                
+                <div class="answer-options" id="answer-options">
+                    <!-- Answer buttons will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fact Card Screen -->
+    <div id="fact-screen" class="screen">
+        <div class="fact-card">
+            <div class="fact-header">
+                <h2 id="fact-title">💧 Water Impact Story</h2>
+            </div>
+            <div class="fact-content">
+                <div class="fact-image" id="fact-image">🌍</div>
+                <div class="fact-text" id="fact-text">
+                    Loading impact story...
+                </div>
+                <div class="fact-impact" id="fact-impact">
+                    <!-- Impact metrics will be shown here -->
+                </div>
+            </div>
+            <button class="continue-btn" onclick="continueFromFact()">Continue Your Mission 🚀</button>
+        </div>
+    </div>
+
+    <!-- Story Screen -->
+    <div id="story-screen" class="screen">
+        <div class="story-card">
+            <div class="story-header">
+                <h2 id="story-title">🌟 Real Impact Stories</h2>
+            </div>
+            <div class="story-content">
+                <div class="story-character" id="story-character">👩‍🌾</div>
+                <div class="story-text" id="story-text">
+                    Loading story...
+                </div>
+                <div class="story-stats" id="story-stats">
+                    <!-- Statistics will be shown here -->
+                </div>
+            </div>
+            <button class="continue-btn" onclick="continueFromStory()">Continue Learning 📚</button>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen">
+        <div class="results-container">
+            <div class="results-header">
+                <h1 id="results-title">🎉 Mission Complete!</h1>
+                <div class="final-score" id="final-score">
+                    <div class="score-circle">
+                        <span class="score-number" id="score-number">0</span>
+                        <span class="score-total">/ 10</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-content">
+                <div class="hero-final">
+                    <div class="hero-avatar-large" id="results-avatar">🧙‍♂️</div>
+                    <div class="hero-final-details">
+                        <h2 id="results-hero-name">Hero Name</h2>
+                        <p id="results-hero-class">Water Mage</p>
+                        <div class="final-level">
+                            <span class="level-label">Final Level:</span>
+                            <span class="level-number" id="results-level">1</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievement-summary" id="achievement-summary">
+                    <h3>🏆 Achievements Unlocked</h3>
+                    <div class="achievements-grid" id="achievements-grid">
+                        <!-- Achievements will be added here -->
+                    </div>
+                </div>
+
+                <div class="ranking-section">
+                    <h3 id="ranking-title">🌟 Your Water Hero Ranking</h3>
+                    <div class="ranking-card" id="ranking-card">
+                        <div class="ranking-badge" id="ranking-badge">🏆</div>
+                        <div class="ranking-details">
+                            <h4 id="ranking-name">Water Champion</h4>
+                            <p id="ranking-description">You've mastered the art of water knowledge!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-summary">
+                    <h3>💧 Your Impact</h3>
+                    <div class="impact-stats">
+                        <div class="impact-item">
+                            <span class="impact-number" id="total-xp">0</span>
+                            <span class="impact-label">Total XP Earned</span>
+                        </div>
+                        <div class="impact-item">
+                            <span class="impact-number" id="questions-answered">0</span>
+                            <span class="impact-label">Questions Answered</span>
+                        </div>
+                        <div class="impact-item">
+                            <span class="impact-number" id="facts-learned">0</span>
+                            <span class="impact-label">Facts Learned</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Sharing Section -->
+                <div class="social-sharing">
+                    <h3>📢 Share Your Achievement</h3>
+                    <p>Tell the world about your water knowledge and help spread awareness!</p>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareToTwitter()">
+                            🐦 Share on Twitter
+                        </button>
+                        <button class="share-btn facebook" onclick="shareToFacebook()">
+                            📘 Share on Facebook
+                        </button>
+                        <button class="share-btn copy" onclick="copyResult()">
+                            📋 Copy Result
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-actions">
+                <button class="action-btn secondary" onclick="restartGame()">🔄 Play Again</button>
+                <button class="action-btn primary" onclick="visitCharityWater()">🌍 Learn More About charity:water</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen Effects -->
+    <div id="screen-shake-container">
+        <!-- Achievement Notification -->
+        <div id="achievement-notification" class="achievement-popup">
+            <div class="achievement-content">
+                <div class="achievement-icon">🏆</div>
+                <div class="achievement-text">
+                    <h3 id="achievement-name">Achievement Unlocked!</h3>
+                    <p id="achievement-desc">You did something amazing!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Power-Up Panel -->
+        <div class="powerup-panel" id="powerupPanel">
+            <h3>⚡ Power-Ups Available</h3>
+            <div class="powerup-grid">
+                <button class="powerup-btn" id="hintVision" onclick="usePowerUp('hint_vision')" disabled>
+                    <div class="powerup-icon">👁️</div>
+                    <div class="powerup-info">
+                        <span class="powerup-name">Hint Vision</span>
+                        <span class="powerup-desc">Reveals helpful clues</span>
+                    </div>
+                </button>
+                <button class="powerup-btn" id="doubleXp" onclick="usePowerUp('double_xp')" disabled>
+                    <div class="powerup-icon">⭐</div>
+                    <div class="powerup-info">
+                        <span class="powerup-name">Double XP</span>
+                        <span class="powerup-desc">2x points for this question</span>
+                    </div>
+                </button>
+                <button class="powerup-btn" id="secondChance" onclick="usePowerUp('second_chance')" disabled>
+                    <div class="powerup-icon">🔄</div>
+                    <div class="powerup-info">
+                        <span class="powerup-name">Second Chance</span>
+                        <span class="powerup-desc">Try again if wrong</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Screen Flash Effect -->
+        <div id="screen-flash"></div>
+        
+        <!-- Confetti Container -->
+        <div id="confetti-container"></div>
+        
+        <!-- Fireworks Container -->
+        <div id="fireworks-container"></div>
+    </div>
+
+    <!-- Load Game Script -->
+    <script src="script.js"></script>
+</body>
+</html>
