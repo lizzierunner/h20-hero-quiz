@@ -1530,6 +1530,19 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// charity: water integration functions
+function visitCharityWater() {
+    window.open('https://www.charitywater.org', '_blank', 'noopener,noreferrer');
+}
+
+function donateToCharityWater() {
+    window.open('https://www.charitywater.org/donate', '_blank', 'noopener,noreferrer');
+}
+
+function learnAboutCharityWater() {
+    window.open('https://www.charitywater.org/about', '_blank', 'noopener,noreferrer');
+}
+
 // Add keyboard navigation
 document.addEventListener('keydown', (e) => {
     if (e.key >= '1' && e.key <= '4') {

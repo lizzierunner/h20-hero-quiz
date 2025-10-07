@@ -2815,3 +2815,367 @@ body {
     0%, 100% { box-shadow: 0 0 5px var(--cw-yellow-alpha); }
     50% { box-shadow: 0 0 20px var(--cw-yellow-alpha); }
 }
+
+/* ===========================
+   CHARITY:WATER BRANDING & LINKS
+   =========================== */
+
+/* charity: water Header */
+.charity-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--cw-yellow) 0%, var(--cw-yellow-dark) 100%);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.charity-logo .charity-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--cw-white);
+    text-decoration: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.charity-logo a:hover .charity-name {
+    color: var(--cw-yellow-light);
+    transform: scale(1.05);
+}
+
+.charity-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.charity-link {
+    color: var(--cw-white);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+.charity-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.donate-link {
+    background: linear-gradient(135deg, var(--cw-blue) 0%, var(--cw-blue-dark) 100%);
+    color: var(--cw-white);
+    font-weight: bold;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.donate-link:hover {
+    background: linear-gradient(135deg, var(--cw-blue-dark) 0%, var(--cw-blue) 100%);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* charity: water Mission Section (Welcome Screen) */
+.charity-mission-section {
+    margin: 30px 0;
+    padding: 20px 0;
+}
+
+.mission-card {
+    background: linear-gradient(135deg, var(--cw-blue-light) 0%, var(--cw-white) 100%);
+    border: 2px solid var(--cw-blue);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 116, 217, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.mission-card:hover::before {
+    opacity: 1;
+    transform: rotate(45deg) translate(50%, 50%);
+}
+
+.mission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 116, 217, 0.3);
+}
+
+.mission-card h3 {
+    color: var(--cw-blue);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.mission-card p {
+    color: var(--cw-gray);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.mission-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mission-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-btn.primary {
+    background: linear-gradient(135deg, var(--cw-yellow) 0%, var(--cw-yellow-dark) 100%);
+    color: var(--cw-black);
+    box-shadow: 0 4px 15px rgba(255, 201, 7, 0.4);
+}
+
+.mission-btn.primary:hover {
+    background: linear-gradient(135deg, var(--cw-yellow-dark) 0%, var(--cw-yellow) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 201, 7, 0.6);
+}
+
+.mission-btn.secondary {
+    background: linear-gradient(135deg, var(--cw-blue) 0%, var(--cw-blue-dark) 100%);
+    color: var(--cw-white);
+    box-shadow: 0 4px 15px rgba(0, 116, 217, 0.4);
+}
+
+.mission-btn.secondary:hover {
+    background: linear-gradient(135deg, var(--cw-blue-dark) 0%, var(--cw-blue) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 116, 217, 0.6);
+}
+
+/* charity: water Call to Action (Results Screen) */
+.charity-cta-section {
+    margin: 30px 0;
+    padding: 20px 0;
+}
+
+.cta-card {
+    background: linear-gradient(135deg, var(--cw-yellow-light) 0%, var(--cw-white) 50%, var(--cw-blue-light) 100%);
+    border: 3px solid var(--cw-yellow);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(255, 201, 7, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: cta-pulse 3s ease-in-out infinite;
+}
+
+.cta-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 201, 7, 0.1), transparent);
+    animation: cta-shimmer 3s linear infinite;
+}
+
+.cta-header h3 {
+    color: var(--cw-blue);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cta-header p {
+    color: var(--cw-gray);
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.impact-fact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: var(--cw-yellow-light);
+    border: 2px solid var(--cw-yellow);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 25px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--cw-blue);
+}
+
+.fact-icon {
+    font-size: 1.5rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+}
+
+.cta-btn.primary {
+    background: linear-gradient(135deg, var(--cw-yellow) 0%, var(--cw-yellow-dark) 100%);
+    color: var(--cw-black);
+    box-shadow: 0 6px 20px rgba(255, 201, 7, 0.5);
+    animation: cta-primary-glow 2s ease-in-out infinite;
+}
+
+.cta-btn.primary:hover {
+    background: linear-gradient(135deg, var(--cw-yellow-dark) 0%, var(--cw-yellow) 100%);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 201, 7, 0.7);
+}
+
+.cta-btn.secondary {
+    background: linear-gradient(135deg, var(--cw-blue) 0%, var(--cw-blue-dark) 100%);
+    color: var(--cw-white);
+    box-shadow: 0 6px 20px rgba(0, 116, 217, 0.5);
+}
+
+.cta-btn.secondary:hover {
+    background: linear-gradient(135deg, var(--cw-blue-dark) 0%, var(--cw-blue) 100%);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 116, 217, 0.7);
+}
+
+/* Adjust body padding for fixed header */
+body {
+    padding-top: 70px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .charity-header {
+        padding: 10px 15px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .charity-nav {
+        gap: 10px;
+    }
+    
+    .charity-link {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+    
+    .mission-buttons, .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .mission-btn, .cta-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .cta-card {
+        padding: 25px 20px;
+    }
+    
+    .impact-fact {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    body {
+        padding-top: 90px;
+    }
+}
+
+/* Animation keyframes */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+}
+
+@keyframes cta-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes cta-shimmer {
+    0% { transform: rotate(45deg) translate(-100%, -100%); }
+    100% { transform: rotate(45deg) translate(100%, 100%); }
+}
+
+@keyframes cta-primary-glow {
+    0%, 100% { box-shadow: 0 6px 20px rgba(255, 201, 7, 0.5); }
+    50% { box-shadow: 0 6px 25px rgba(255, 201, 7, 0.8); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
