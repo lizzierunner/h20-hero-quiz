@@ -1530,6 +1530,889 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ===========================
+// ULTIMATE IMPACT CELEBRATION
+// ===========================
+
+// Create the most spectacular celebration ever
+function createUltimateImpactCelebration() {
+    // Play epic celebration sound
+    soundSystem.playCelebration();
+    
+    // Create massive fireworks display
+    createEpicFireworksDisplay();
+    
+    // Launch confetti storm
+    createConfettiStorm();
+    
+    // Create floating achievement badges
+    createAchievementBadges();
+    
+    // Animate impact numbers with spectacular counting
+    animateImpactNumbers();
+    
+    // Create golden particle shower
+    createGoldenParticleShower();
+    
+    // Add screen flash effect
+    createScreenFlashEffect();
+    
+    setTimeout(() => {
+        // Secondary wave of effects
+        createWaterRippleWaves();
+        soundSystem.playEpicTransition();
+    }, 2000);
+}
+
+// Epic fireworks display
+function createEpicFireworksDisplay() {
+    const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
+    
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * (window.innerHeight * 0.6) + 100;
+            createSingleFirework(x, y, colors[Math.floor(Math.random() * colors.length)]);
+        }, i * 300);
+    }
+}
+
+// Single firework explosion
+function createSingleFirework(x, y, color) {
+    const particleCount = 20;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: fixed;
+            left: ${x}px;
+            top: ${y}px;
+            width: 8px;
+            height: 8px;
+            background: ${color};
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 10px ${color};
+        `;
+        
+        document.body.appendChild(particle);
+        
+        const angle = (i / particleCount) * 2 * Math.PI;
+        const velocity = Math.random() * 200 + 100;
+        const gravity = 0.5;
+        
+        let velX = Math.cos(angle) * velocity;
+        let velY = Math.sin(angle) * velocity;
+        let posX = x;
+        let posY = y;
+        
+        function animateParticle() {
+            velY += gravity;
+            posX += velX * 0.016;
+            posY += velY * 0.016;
+            velX *= 0.99;
+            velY *= 0.99;
+            
+            particle.style.left = posX + 'px';
+            particle.style.top = posY + 'px';
+            
+            if (posY < window.innerHeight && particle.parentNode) {
+                requestAnimationFrame(animateParticle);
+            } else {
+                particle.remove();
+            }
+        }
+        
+        requestAnimationFrame(animateParticle);
+    }
+}
+
+// Confetti storm
+function createConfettiStorm() {
+    const confettiCount = 150;
+    const colors = ['#FFD700', '#FFC907', '#57C5B6', '#1A5F7A', '#FF6B6B', '#4ECDC4'];
+    
+    for (let i = 0; i < confettiCount; i++) {
+        setTimeout(() => {
+            const confetti = document.createElement('div');
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            confetti.style.cssText = `
+                position: fixed;
+                width: ${Math.random() * 15 + 5}px;
+                height: ${Math.random() * 15 + 5}px;
+                background: ${color};
+                left: ${Math.random() * window.innerWidth}px;
+                top: -20px;
+                transform: rotate(${Math.random() * 360}deg);
+                z-index: 9999;
+                pointer-events: none;
+                box-shadow: 0 0 6px ${color};
+                border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+            `;
+            
+            document.body.appendChild(confetti);
+            
+            const fallDuration = Math.random() * 3000 + 2000;
+            const rotation = Math.random() * 720 + 360;
+            const sway = Math.random() * 200 - 100;
+            
+            confetti.animate([
+                { 
+                    transform: `translateY(0) translateX(0) rotate(0deg)`,
+                    opacity: 1 
+                },
+                { 
+                    transform: `translateY(${window.innerHeight + 50}px) translateX(${sway}px) rotate(${rotation}deg)`,
+                    opacity: 0 
+                }
+            ], {
+                duration: fallDuration,
+                easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            });
+            
+            setTimeout(() => confetti.remove(), fallDuration);
+        }, i * 20);
+    }
+}
+
+// Achievement badges floating in
+function createAchievementBadges() {
+    const achievements = [
+        { icon: '🏆', text: 'Water Hero' },
+        { icon: '💧', text: 'Life Saver' },
+        { icon: '🌍', text: 'World Changer' },
+        { icon: '⭐', text: 'Impact Maker' },
+        { icon: '🎯', text: 'Mission Complete' }
+    ];
+    
+    achievements.forEach((achievement, index) => {
+        setTimeout(() => {
+            const badge = document.createElement('div');
+            badge.style.cssText = `
+                position: fixed;
+                right: -300px;
+                top: ${100 + index * 80}px;
+                background: linear-gradient(135deg, #FFD700, #FFA500);
+                border: 3px solid #FF8C00;
+                border-radius: 50px;
+                padding: 15px 25px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: white;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+                z-index: 10001;
+                pointer-events: none;
+                white-space: nowrap;
+            `;
+            badge.innerHTML = `${achievement.icon} ${achievement.text}`;
+            
+            document.body.appendChild(badge);
+            
+            badge.animate([
+                { transform: 'translateX(0) scale(0.5)', opacity: 0 },
+                { transform: 'translateX(-320px) scale(1.1)', opacity: 1 },
+                { transform: 'translateX(-300px) scale(1)', opacity: 1 }
+            ], {
+                duration: 800,
+                easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                fill: 'forwards'
+            });
+            
+            // Remove after display time
+            setTimeout(() => {
+                badge.animate([
+                    { transform: 'translateX(-300px) scale(1)', opacity: 1 },
+                    { transform: 'translateX(-400px) scale(0.8)', opacity: 0 }
+                ], {
+                    duration: 500,
+                    easing: 'ease-in'
+                });
+                setTimeout(() => badge.remove(), 500);
+            }, 3000);
+        }, index * 400);
+    });
+}
+
+// Animate impact numbers with counting effect
+function animateImpactNumbers() {
+    const impactNumbers = document.querySelectorAll('.impact-number');
+    
+    impactNumbers.forEach((numberElement, index) => {
+        setTimeout(() => {
+            const finalValue = parseInt(numberElement.textContent.replace(/,/g, ''));
+            const duration = 2000;
+            const startTime = Date.now();
+            
+            function updateNumber() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth animation
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const currentValue = Math.floor(finalValue * eased);
+                
+                numberElement.textContent = currentValue.toLocaleString();
+                numberElement.style.transform = `scale(${1 + Math.sin(progress * Math.PI) * 0.3})`;
+                numberElement.style.color = progress < 1 ? '#FFD700' : '#1A5F7A';
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                } else {
+                    // Final flash effect
+                    numberElement.style.animation = 'impactFlash 0.5s ease-out';
+                }
+            }
+            
+            updateNumber();
+        }, index * 500);
+    });
+}
+
+// Golden particle shower
+function createGoldenParticleShower() {
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.innerHTML = '✨';
+            particle.style.cssText = `
+                position: fixed;
+                left: ${Math.random() * window.innerWidth}px;
+                top: -20px;
+                font-size: ${Math.random() * 20 + 15}px;
+                color: #FFD700;
+                pointer-events: none;
+                z-index: 9998;
+                text-shadow: 0 0 10px #FFD700;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            particle.animate([
+                { 
+                    transform: 'translateY(0) rotate(0deg)',
+                    opacity: 0 
+                },
+                { 
+                    transform: 'translateY(200px) rotate(180deg)',
+                    opacity: 1 
+                },
+                { 
+                    transform: `translateY(${window.innerHeight + 50}px) rotate(360deg)`,
+                    opacity: 0 
+                }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'ease-out'
+            });
+            
+            setTimeout(() => particle.remove(), 5000);
+        }, i * 100);
+    }
+}
+
+// Screen flash effect
+function createScreenFlashEffect() {
+    const flash = document.createElement('div');
+    flash.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.8), transparent);
+        pointer-events: none;
+        z-index: 10002;
+        opacity: 0;
+    `;
+    
+    document.body.appendChild(flash);
+    
+    flash.animate([
+        { opacity: 0 },
+        { opacity: 1 },
+        { opacity: 0 }
+    ], {
+        duration: 300,
+        easing: 'ease-out'
+    });
+    
+    setTimeout(() => flash.remove(), 300);
+}
+
+// Water ripple waves across screen
+function createWaterRippleWaves() {
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+            const wave = document.createElement('div');
+            wave.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                width: 50px;
+                height: 50px;
+                border: 3px solid rgba(87, 197, 182, 0.6);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 9997;
+            `;
+            
+            document.body.appendChild(wave);
+            
+            wave.animate([
+                { 
+                    width: '50px',
+                    height: '50px',
+                    opacity: 0.8 
+                },
+                { 
+                    width: '1000px',
+                    height: '1000px',
+                    opacity: 0 
+                }
+            ], {
+                duration: 2000,
+                easing: 'ease-out'
+            });
+            
+            setTimeout(() => wave.remove(), 2000);
+        }, i * 400);
+    }
+}
+
+// Add CSS for impact celebration
+const impactCelebrationStyles = document.createElement('style');
+impactCelebrationStyles.textContent = `
+    @keyframes impactFlash {
+        0% { text-shadow: 0 0 5px #FFD700; }
+        50% { text-shadow: 0 0 30px #FFD700, 0 0 40px #FFA500; }
+        100% { text-shadow: 0 0 5px #FFD700; }
+    }
+`;
+document.head.appendChild(impactCelebrationStyles);
+
+// Trigger celebration when impact story is shown
+function showImpactStory() {
+    // Show impact story screen
+    document.getElementById('game-screen').classList.remove('active');
+    document.getElementById('impact-story-screen').classList.add('active');
+    
+    // Trigger ultimate celebration after brief delay
+    setTimeout(() => {
+        createUltimateImpactCelebration();
+    }, 1000);
+}
+
+// ===========================
+// SPECTACULAR SOUND SYSTEM
+// ===========================
+
+// Initialize Audio Context and Sound System
+class SpectacularSoundSystem {
+    constructor() {
+        this.audioContext = null;
+        this.sounds = {};
+        this.volume = 0.3;
+        this.enabled = true;
+        this.initializeAudioContext();
+    }
+
+    initializeAudioContext() {
+        try {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (error) {
+            console.log('Web Audio API not supported');
+            this.enabled = false;
+        }
+    }
+
+    // Create water droplet sound
+    createWaterDropSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, this.audioContext.currentTime + 0.3);
+        
+        gainNode.gain.setValueAtTime(this.volume, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
+        
+        oscillator.start(this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime + 0.3);
+    }
+
+    // Create success chime
+    createSuccessSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        const frequencies = [523, 659, 784]; // C, E, G chord
+        
+        frequencies.forEach((freq, index) => {
+            const oscillator = this.audioContext.createOscillator();
+            const gainNode = this.audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(this.audioContext.destination);
+            
+            oscillator.frequency.value = freq;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(this.volume * 0.3, this.audioContext.currentTime + 0.1 + index * 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.8);
+            
+            oscillator.start(this.audioContext.currentTime + index * 0.1);
+            oscillator.stop(this.audioContext.currentTime + 0.8);
+        });
+    }
+
+    // Create magical sparkle sound
+    createSparkleSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(1200, this.audioContext.currentTime);
+        oscillator.frequency.linearRampToValueAtTime(2400, this.audioContext.currentTime + 0.1);
+        oscillator.frequency.exponentialRampToValueAtTime(800, this.audioContext.currentTime + 0.2);
+        
+        oscillator.type = 'triangle';
+        
+        gainNode.gain.setValueAtTime(this.volume * 0.4, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.2);
+        
+        oscillator.start(this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime + 0.2);
+    }
+
+    // Create epic transition sound
+    createEpicTransitionSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        // Rising frequency sweep
+        const oscillator1 = this.audioContext.createOscillator();
+        const gainNode1 = this.audioContext.createGain();
+        
+        oscillator1.connect(gainNode1);
+        gainNode1.connect(this.audioContext.destination);
+        
+        oscillator1.frequency.setValueAtTime(100, this.audioContext.currentTime);
+        oscillator1.frequency.exponentialRampToValueAtTime(1000, this.audioContext.currentTime + 1);
+        oscillator1.type = 'sawtooth';
+        
+        gainNode1.gain.setValueAtTime(this.volume * 0.5, this.audioContext.currentTime);
+        gainNode1.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 1);
+        
+        oscillator1.start(this.audioContext.currentTime);
+        oscillator1.stop(this.audioContext.currentTime + 1);
+        
+        // Add magical sparkles during transition
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => this.createSparkleSound(), i * 200);
+        }
+    }
+
+    // Create celebration fanfare
+    createCelebrationSound() {
+        if (!this.enabled || !this.audioContext) return;
+        
+        const melody = [523, 659, 784, 1047]; // C, E, G, high C
+        
+        melody.forEach((freq, index) => {
+            setTimeout(() => {
+                const oscillator = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(this.audioContext.destination);
+                
+                oscillator.frequency.value = freq;
+                oscillator.type = 'triangle';
+                
+                gainNode.gain.setValueAtTime(this.volume * 0.6, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
+                
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + 0.5);
+            }, index * 150);
+        });
+    }
+
+    // Public methods for playing sounds
+    playWaterDrop() { this.createWaterDropSound(); }
+    playSuccess() { this.createSuccessSound(); }
+    playSparkle() { this.createSparkleSound(); }
+    playEpicTransition() { this.createEpicTransitionSound(); }
+    playCelebration() { this.createCelebrationSound(); }
+
+    // Toggle sound on/off
+    toggle() {
+        this.enabled = !this.enabled;
+        return this.enabled;
+    }
+
+    // Set volume (0-1)
+    setVolume(volume) {
+        this.volume = Math.max(0, Math.min(1, volume));
+    }
+}
+
+// Initialize global sound system
+const soundSystem = new SpectacularSoundSystem();
+
+// Enhanced playSound function to use new system
+function playSound(soundType) {
+    if (!soundSystem.enabled) return;
+    
+    switch(soundType) {
+        case 'waterDrop':
+        case 'click':
+            soundSystem.playWaterDrop();
+            break;
+        case 'successSound':
+        case 'success':
+            soundSystem.playSuccess();
+            break;
+        case 'sparkle':
+        case 'hover':
+            soundSystem.playSparkle();
+            break;
+        case 'levelUpSound':
+        case 'epic':
+            soundSystem.playEpicTransition();
+            break;
+        case 'celebration':
+        case 'fanfare':
+            soundSystem.playCelebration();
+            break;
+        default:
+            soundSystem.playWaterDrop();
+    }
+}
+
+// Add sound toggle button to welcome screen
+function addSoundToggleButton() {
+    const soundToggle = document.createElement('button');
+    soundToggle.className = 'sound-toggle-btn';
+    soundToggle.innerHTML = soundSystem.enabled ? '🔊' : '🔇';
+    soundToggle.title = 'Toggle Sound Effects';
+    soundToggle.onclick = () => {
+        const enabled = soundSystem.toggle();
+        soundToggle.innerHTML = enabled ? '🔊' : '🔇';
+        if (enabled) soundSystem.playSuccess();
+    };
+    
+    const welcomeScreen = document.getElementById('welcome-screen');
+    if (welcomeScreen) {
+        welcomeScreen.appendChild(soundToggle);
+    }
+}
+
+// Initialize sound toggle when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    addSoundToggleButton();
+    
+    // Resume audio context on first user interaction
+    document.addEventListener('click', () => {
+        if (soundSystem.audioContext && soundSystem.audioContext.state === 'suspended') {
+            soundSystem.audioContext.resume();
+        }
+    }, { once: true });
+});
+
+// ===========================
+// SPECTACULAR WELCOME EFFECTS
+// ===========================
+
+// Initialize spectacular welcome experience
+function initSpectacularWelcome() {
+    // Create floating water droplets
+    createFloatingDroplets();
+    
+    // Add entrance animations to existing elements
+    addEntranceAnimations();
+    
+    // Initialize interactive hover effects
+    initializeInteractiveEffects();
+}
+
+// Create floating water droplets background
+function createFloatingDroplets() {
+    const dropletsContainer = document.createElement('div');
+    dropletsContainer.className = 'floating-droplets';
+    
+    const welcomeScreen = document.getElementById('welcome-screen');
+    if (welcomeScreen) {
+        welcomeScreen.appendChild(dropletsContainer);
+    }
+    
+    // Create initial batch of droplets
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => createSingleDroplet(dropletsContainer), i * 1000);
+    }
+    
+    // Continue creating droplets every 2 seconds
+    setInterval(() => createSingleDroplet(dropletsContainer), 2000);
+}
+
+// Create a single floating droplet
+function createSingleDroplet(container) {
+    const droplet = document.createElement('div');
+    droplet.className = 'water-droplet';
+    droplet.innerHTML = ['💧', '🌊', '💙', '✨'][Math.floor(Math.random() * 4)];
+    
+    // Random horizontal position
+    droplet.style.left = Math.random() * 100 + '%';
+    
+    // Random animation duration for variety
+    droplet.style.animationDuration = (6 + Math.random() * 4) + 's';
+    
+    // Random delay
+    droplet.style.animationDelay = Math.random() * 2 + 's';
+    
+    container.appendChild(droplet);
+    
+    // Remove droplet after animation
+    setTimeout(() => {
+        if (droplet.parentNode) {
+            droplet.parentNode.removeChild(droplet);
+        }
+    }, 10000);
+}
+
+// Add entrance animations to elements
+function addEntranceAnimations() {
+    // Add classes for staggered animations
+    const heroTitle = document.querySelector('.hero-section h1');
+    if (heroTitle) heroTitle.classList.add('hero-title');
+    
+    const heroSubtitle = document.querySelector('.hero-section p');
+    if (heroSubtitle) heroSubtitle.classList.add('hero-subtitle');
+    
+    const missionStatement = document.querySelector('.mission-section');
+    if (missionStatement) missionStatement.classList.add('mission-statement');
+    
+    const impactMetrics = document.querySelector('.impact-metrics');
+    if (impactMetrics) impactMetrics.classList.add('impact-metrics');
+    
+    const ctaButtons = document.querySelector('.cta-buttons');
+    if (ctaButtons) ctaButtons.classList.add('cta-buttons');
+}
+
+// Initialize interactive hover effects
+function initializeInteractiveEffects() {
+    // Add hover effects to CTA buttons
+    const ctaButtons = document.querySelectorAll('.cta-primary, .cta-secondary');
+    ctaButtons.forEach(button => {
+        button.addEventListener('mouseenter', (e) => {
+            createHoverSparkles(e.target);
+        });
+        
+        button.addEventListener('click', (e) => {
+            effectsSystem.waterRipple(e.target, e);
+            effectsSystem.particleBurst(e.target);
+        });
+    });
+    
+    // Add hover effects to metric cards
+    const metricCards = document.querySelectorAll('.metric-card');
+    metricCards.forEach(card => {
+        card.addEventListener('mouseenter', (e) => {
+            e.target.style.transform = 'translateY(-10px) scale(1.05)';
+            e.target.style.boxShadow = '0 20px 40px rgba(255, 201, 7, 0.3)';
+        });
+        
+        card.addEventListener('mouseleave', (e) => {
+            e.target.style.transform = '';
+            e.target.style.boxShadow = '';
+        });
+    });
+}
+
+// Create sparkles on hover
+function createHoverSparkles(element) {
+    const rect = element.getBoundingClientRect();
+    
+    for (let i = 0; i < 5; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.innerHTML = '✨';
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+        sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+        sparkle.style.fontSize = '1rem';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '9999';
+        sparkle.style.animation = 'sparkleFloat 1s ease-out forwards';
+        
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1000);
+    }
+}
+
+// Enhanced start game function with spectacular transition
+function startGame() {
+    // Create epic transition effect
+    createSpectacularTransition();
+    
+    setTimeout(() => {
+        // Hide welcome screen
+        document.getElementById('welcome-screen').classList.remove('active');
+        
+        // Show character creation (avatar selection first)
+        document.getElementById('character-creation-screen').classList.add('active');
+        document.getElementById('avatar-selection-screen').classList.add('active');
+        
+        // Initialize avatar selection effects
+        initializeAvatarEffects();
+        
+        playSound('successSound');
+    }, 1000);
+}
+
+// Create spectacular transition effect
+function createSpectacularTransition() {
+    const transition = document.createElement('div');
+    transition.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(45deg, #0074D9, #FFC907, #0074D9);
+        background-size: 400% 400%;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        animation: spectacularTransition 2s ease-in-out;
+    `;
+    
+    const text = document.createElement('div');
+    text.innerHTML = '🌊 BEGINNING YOUR WATER HERO JOURNEY 🌊';
+    text.style.cssText = `
+        font-size: 2rem;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+        animation: transitionText 2s ease-in-out;
+    `;
+    
+    transition.appendChild(text);
+    document.body.appendChild(transition);
+    
+    // Create transition particles
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.innerHTML = '💧';
+        particle.style.cssText = `
+            position: absolute;
+            font-size: 2rem;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: transitionParticle 2s ease-out;
+            opacity: 0;
+        `;
+        transition.appendChild(particle);
+    }
+    
+    setTimeout(() => transition.remove(), 2000);
+}
+
+// Initialize avatar selection effects
+function initializeAvatarEffects() {
+    const avatarOptions = document.querySelectorAll('.avatar-option');
+    avatarOptions.forEach(option => {
+        option.addEventListener('mouseenter', (e) => {
+            e.target.style.transform = 'scale(1.1) translateY(-10px)';
+            e.target.style.boxShadow = '0 15px 30px rgba(255, 201, 7, 0.4)';
+            createAvatarHoverEffect(e.target);
+        });
+        
+        option.addEventListener('mouseleave', (e) => {
+            if (!e.target.classList.contains('selected')) {
+                e.target.style.transform = '';
+                e.target.style.boxShadow = '';
+            }
+        });
+    });
+}
+
+// Create avatar hover effect
+function createAvatarHoverEffect(element) {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    for (let i = 0; i < 8; i++) {
+        const glow = document.createElement('div');
+        glow.innerHTML = '⭐';
+        glow.style.cssText = `
+            position: fixed;
+            left: ${centerX}px;
+            top: ${centerY}px;
+            font-size: 1rem;
+            color: #FFC907;
+            pointer-events: none;
+            z-index: 1000;
+            animation: avatarGlow 0.8s ease-out forwards;
+            animation-delay: ${i * 0.1}s;
+        `;
+        
+        document.body.appendChild(glow);
+        setTimeout(() => glow.remove(), 800 + (i * 100));
+    }
+}
+
+// Add CSS animations for the new effects
+const spectacularAnimations = document.createElement('style');
+spectacularAnimations.textContent = `
+    @keyframes sparkleFloat {
+        0% { transform: translateY(0) scale(0); opacity: 1; }
+        100% { transform: translateY(-30px) scale(1.5); opacity: 0; }
+    }
+    
+    @keyframes spectacularTransition {
+        0% { opacity: 0; background-position: 0% 50%; }
+        50% { opacity: 1; background-position: 100% 50%; }
+        100% { opacity: 0; background-position: 0% 50%; }
+    }
+    
+    @keyframes transitionText {
+        0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+        50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    
+    @keyframes transitionParticle {
+        0% { transform: scale(0) translateY(0); opacity: 0; }
+        50% { transform: scale(1) translateY(-20px); opacity: 1; }
+        100% { transform: scale(1.5) translateY(-50px); opacity: 0; }
+    }
+    
+    @keyframes avatarGlow {
+        0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(2) translateY(-20px); opacity: 0; }
+    }
+`;
+document.head.appendChild(spectacularAnimations);
+
+// Initialize welcome effects when page loads
+document.addEventListener('DOMContentLoaded', initSpectacularWelcome);
+
+// ===========================
 // WIREFRAME-COMPLIANT NAVIGATION SYSTEM
 // ===========================
 
