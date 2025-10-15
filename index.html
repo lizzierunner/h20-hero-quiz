@@ -37,6 +37,15 @@
     
     <!-- charity: water Header -->
     <div id="charity-water-header" class="charity-header">
+        <!-- Official charity: water Logo SVG -->
+        <div class="cw-logo-svg">
+            <a href="https://www.charitywater.org" target="_blank" rel="noopener noreferrer" aria-label="charity: water homepage">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="cw-svg-logo">
+                    <rect width="48" height="48" rx="12" fill="#FFD600"/>
+                    <path d="M24 10c-1.1 0-2 .9-2 2v8.1c-2.8.5-5 2.9-5 5.9 0 3.3 2.7 6 6 6s6-2.7 6-6c0-3-2.2-5.4-5-5.9V12c0-1.1-.9-2-2-2zm0 10c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4z" fill="#000"/>
+                </svg>
+            </a>
+        </div>
         <!-- Animated Water Droplets -->
         <div class="water-droplets">
             <div class="droplet droplet-1">💧</div>
@@ -45,10 +54,8 @@
             <div class="droplet droplet-4">💧</div>
             <div class="droplet droplet-5">💧</div>
         </div>
-        
         <!-- Flowing Water Animation -->
         <div class="water-flow"></div>
-        
         <div class="charity-logo">
             <a href="https://www.charitywater.org" target="_blank" rel="noopener noreferrer">
                 <span class="charity-name">charity: water</span>
@@ -60,7 +67,7 @@
                 <span class="link-icon">📖</span> About Us
             </a>
             <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="charity-link donate-link" onclick="triggerDonateEffect(event)">
-                <span class="donate-icon">💧</span> Donate
+                <span class="donate-icon" style="color:#FFD600;">💧</span> Donate
                 <div class="donate-pulse"></div>
             </a>
         </div>
@@ -690,6 +697,7 @@
 
             <div class="results-actions">
                 <button class="action-btn secondary" onclick="restartGame()">🔄 Play Again</button>
+                <button class="action-btn reset" onclick="resetGameAndGoHome()">🗑️ Reset Game</button>
                 <button class="action-btn primary" onclick="visitCharityWater()">🌍 Visit charity: water</button>
             </div>
         </div>
@@ -741,9 +749,17 @@
         
         <!-- Confetti Container -->
         <div id="confetti-container"></div>
-        
         <!-- Fireworks Container -->
         <div id="fireworks-container"></div>
+        <!-- Spectacular Win Celebration Overlay -->
+        <div id="win-celebration-overlay" class="win-celebration-overlay">
+            <div class="win-glow"></div>
+            <div class="win-message">
+                <span class="win-hero-icon">🏆</span>
+                <h1 class="win-title">You’re an H<sub>2</sub>O Hero!</h1>
+                <p class="win-subtitle">You completed the quiz and helped bring clean water to the world!</p>
+            </div>
+        </div>
     </div>
 
     <!-- Load Game Script -->

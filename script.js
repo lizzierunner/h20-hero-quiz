@@ -1,3 +1,8 @@
+// Fully reset game and return to welcome screen
+function resetGameAndGoHome() {
+    resetGame();
+    showScreen('welcome-screen');
+}
 // Enhanced Achievement System with Unlockable Badges
 const achievements = {
     'first_drop': {
@@ -1435,6 +1440,14 @@ function showResults() {
         effectsSystem.createFireworks(10);
         effectsSystem.createConfetti(150);
         audioSystem.playLevelUp();
+        // Show spectacular win overlay
+        const winOverlay = document.getElementById('win-celebration-overlay');
+        if (winOverlay) {
+            winOverlay.classList.add('active');
+            setTimeout(() => {
+                winOverlay.classList.remove('active');
+            }, 5000);
+        }
     }, 500);
     
     // Update character display with animation delays
@@ -1907,25 +1920,128 @@ function initializeCollectibleDrops() {
 // Create a single collectible water drop
 function createCollectibleDrop() {
     const drop = document.createElement('div');
-    drop.className = 'water-drop-collectible';
-    drop.innerHTML = '💧';
-    
+    // 15% chance to spawn a contaminated drop, 10% chance to spawn a purifier drop
+    const rand = Math.random();
+    let isContaminated = false;
+    let isPurifier = false;
+    if (rand < 0.15) {
+        isContaminated = true;
+        drop.className = 'contaminated-drop-collectible';
+        drop.innerHTML = '🦠';
+    } else if (rand < 0.25) {
+        isPurifier = true;
+        drop.className = 'purifier-drop-collectible';
+        drop.innerHTML = '🧴';
+    } else {
+        drop.className = 'water-drop-collectible';
+        drop.innerHTML = '💧';
+    }
     // Random position
     const x = Math.random() * (window.innerWidth - 60) + 30;
     const y = Math.random() * (window.innerHeight - 60) + 30;
-    
     drop.style.left = x + 'px';
     drop.style.top = y + 'px';
-    
     // Add click handler
-    drop.onclick = () => collectDrop(drop);
-    
+    drop.onclick = () => {
+        if (isContaminated) {
+            collectContaminatedDrop(drop);
+        } else if (isPurifier) {
+            collectPurifierDrop(drop);
+        } else {
+            collectDrop(drop);
+        }
+    };
+// Track if player is immune to contaminated drops
+let contaminatedImmunity = false;
+let contaminatedPenaltyStack = 0;
+
+// Purifier drop logic
+function collectPurifierDrop(drop) {
+    if (drop.classList.contains('collected')) return;
+    drop.classList.add('collected');
+    // If player has a penalty, remove it; else grant immunity for 20 seconds
+    if (contaminatedPenaltyStack > 0) {
+        addExperience(30); // Refund last penalty
+        contaminatedPenaltyStack--;
+        showPurifierMessage('Penalty Cleared! +30 XP', drop);
+    } else {
+        contaminatedImmunity = true;
+        showPurifierMessage('Immunity: 20s', drop);
+        // Visual indicator for immunity
+        document.body.classList.add('contaminated-immune');
+        setTimeout(() => {
+            contaminatedImmunity = false;
+            document.body.classList.remove('contaminated-immune');
+        }, 20000);
+    }
+    playSound('success');
+    createPurifierEffect(drop);
+    setTimeout(() => {
+        removeDrop(drop);
+    }, 600);
+}
+
+function showPurifierMessage(message, element) {
+    const rect = element.getBoundingClientRect();
+    const purifierText = document.createElement('div');
+    purifierText.innerHTML = message;
+    purifierText.style.cssText = `
+        position: fixed;
+        left: ${rect.left + rect.width / 2}px;
+        top: ${rect.top - 30}px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #0074D9;
+        pointer-events: none;
+        z-index: 10000;
+        text-shadow: 0 2px 4px #0074D988;
+        transform: translate(-50%, -50%);
+    `;
+    document.body.appendChild(purifierText);
+    purifierText.animate([
+        { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 },
+        { transform: 'translate(-50%, -80px) scale(1.2)', opacity: 1 },
+        { transform: 'translate(-50%, -120px) scale(1)', opacity: 0 }
+    ], {
+        duration: 1500,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    });
+    setTimeout(() => purifierText.remove(), 1500);
+}
+
+function createPurifierEffect(drop) {
+    const rect = drop.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    // Blue ripple
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+        position: fixed;
+        left: ${centerX}px;
+        top: ${centerY}px;
+        width: 10px;
+        height: 10px;
+        border: 3px solid #0074D9;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+    `;
+    document.body.appendChild(ripple);
+    ripple.animate([
+        { width: '10px', height: '10px', opacity: 0.8 },
+        { width: '100px', height: '100px', opacity: 0 }
+    ], {
+        duration: 600,
+        easing: 'ease-out'
+    });
+    setTimeout(() => ripple.remove(), 600);
+}
     // Add to container and track
     const container = document.getElementById('collectible-drops');
     if (container) {
         container.appendChild(drop);
         collectibleDrops.push(drop);
-        
         // Remove drop after 15 seconds if not collected
         setTimeout(() => {
             if (drop.parentNode) {
@@ -1933,6 +2049,87 @@ function createCollectibleDrop() {
             }
         }, 15000);
     }
+
+}
+
+// Penalty for contaminated drop
+function collectContaminatedDrop(drop) {
+    if (drop.classList.contains('collected')) return;
+    drop.classList.add('collected');
+    // If immune, no penalty
+    if (contaminatedImmunity) {
+        showPenaltyMessage('Immune! No penalty.', drop);
+        playSound('success');
+        createPurifierEffect(drop);
+    } else {
+        // Decrease score or XP
+        addExperience(-30);
+        contaminatedPenaltyStack++;
+        showPenaltyMessage('-30 XP! Contaminated drop!', drop);
+        playSound('error');
+        createContaminatedEffect(drop);
+    }
+    setTimeout(() => {
+        removeDrop(drop);
+    }, 600);
+}
+
+function showPenaltyMessage(message, element) {
+    const rect = element.getBoundingClientRect();
+    const penaltyText = document.createElement('div');
+    penaltyText.innerHTML = message;
+    penaltyText.style.cssText = `
+        position: fixed;
+        left: ${rect.left + rect.width / 2}px;
+        top: ${rect.top - 30}px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #DC3545;
+        pointer-events: none;
+        z-index: 10000;
+        text-shadow: 0 2px 4px #DC354588;
+        transform: translate(-50%, -50%);
+    `;
+    document.body.appendChild(penaltyText);
+    penaltyText.animate([
+        { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 },
+        { transform: 'translate(-50%, -80px) scale(1.2)', opacity: 1 },
+        { transform: 'translate(-50%, -120px) scale(1)', opacity: 0 }
+    ], {
+        duration: 1500,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    });
+    setTimeout(() => penaltyText.remove(), 1500);
+}
+
+function createContaminatedEffect(drop) {
+    const rect = drop.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    // Red warning ripple
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+        position: fixed;
+        left: ${centerX}px;
+        top: ${centerY}px;
+        width: 10px;
+        height: 10px;
+        border: 3px solid #DC3545;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+    `;
+    document.body.appendChild(ripple);
+    ripple.animate([
+        { width: '10px', height: '10px', opacity: 0.8 },
+        { width: '100px', height: '100px', opacity: 0 }
+    ], {
+        duration: 600,
+        easing: 'ease-out'
+    });
+    setTimeout(() => ripple.remove(), 600);
+}
 }
 
 // Collect a water drop

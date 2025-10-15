@@ -1,3 +1,232 @@
+.action-btn.reset {
+    background: linear-gradient(90deg, #DC3545 0%, #FFD6D6 100%);
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    padding: 14px 32px;
+    margin: 0 8px;
+    box-shadow: 0 4px 16px #DC354588;
+    transition: background 0.2s, transform 0.2s;
+    outline: none;
+}
+.action-btn.reset:hover, .action-btn.reset:focus {
+    background: linear-gradient(90deg, #B71C1C 0%, #FFD6D6 100%);
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px #DC3545cc;
+}
+/* Spectacular Win Celebration Overlay */
+.win-celebration-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.45);
+    animation: winFadeIn 0.7s cubic-bezier(0.4,1.4,0.6,1) forwards;
+}
+.win-celebration-overlay.active {
+    display: flex;
+}
+.win-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 80vw; height: 80vw; max-width: 900px; max-height: 900px;
+    background: radial-gradient(circle, #FFD600 0%, #FFF4CC 60%, transparent 100%);
+    filter: blur(60px) brightness(1.2);
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+    animation: winGlowPulse 2.5s infinite alternate;
+    z-index: 1;
+}
+.win-message {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #222;
+    font-family: 'Poppins', 'Fredoka', sans-serif;
+    padding: 40px 24px 32px 24px;
+    border-radius: 32px;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 8px 64px #FFD60088, 0 0 0 8px #FFF4CC44;
+    animation: winMessagePop 1.2s cubic-bezier(0.4,1.4,0.6,1);
+}
+.win-hero-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 32px #FFD60088, 0 0 8px #fff;
+}
+.win-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin: 0 0 12px 0;
+    color: #FFD600;
+    text-shadow: 0 2px 12px #FFD60088, 0 0 2px #000;
+}
+.win-title sub {
+    font-size: 1.2rem;
+    vertical-align: sub;
+}
+.win-subtitle {
+    font-size: 1.3rem;
+    color: #0074D9;
+    margin: 0;
+    font-weight: 600;
+    text-shadow: 0 2px 8px #0074D955;
+}
+@keyframes winFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes winGlowPulse {
+    0% { opacity: 0.7; filter: blur(60px) brightness(1.2); }
+    100% { opacity: 1; filter: blur(80px) brightness(1.4); }
+}
+@keyframes winMessagePop {
+    0% { transform: scale(0.7) translateY(60px); opacity: 0; }
+    60% { transform: scale(1.1) translateY(-10px); opacity: 1; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+/* Purifier Drop Styles */
+.purifier-drop-collectible {
+    color: #0074D9;
+    background: #e6f3ff;
+    border: 2px solid #0074D9;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    pointer-events: all;
+    position: absolute;
+    box-shadow: 0 4px 16px #0074D988, 0 0 8px #fff;
+    animation: purifierFloat 4s ease-in-out infinite;
+    z-index: 501;
+    filter: drop-shadow(0 4px 8px #0074D988);
+    transition: all 0.3s ease;
+}
+.purifier-drop-collectible:hover {
+    transform: scale(1.3) rotate(10deg);
+    filter: drop-shadow(0 8px 16px #0074D9cc);
+    background: #f0faff;
+}
+.purifier-drop-collectible.collected {
+    animation: dropCollect 0.6s ease-out forwards;
+    pointer-events: none;
+    opacity: 0.5;
+}
+@keyframes purifierFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Immunity Visual Indicator */
+body.contaminated-immune {
+    animation: immunePulseBg 1.5s infinite alternate;
+}
+@keyframes immunePulseBg {
+    0% { box-shadow: 0 0 0 0 #0074D944 inset; }
+    100% { box-shadow: 0 0 0 20px #0074D922 inset; }
+}
+/* Contaminated Drop Styles */
+.contaminated-drop-collectible {
+    color: #DC3545;
+    background: rgba(255,255,255,0.85);
+    border: 2px solid #DC3545;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    pointer-events: all;
+    position: absolute;
+    box-shadow: 0 4px 16px #DC354588, 0 0 8px #fff;
+    animation: contaminatedFloat 4s ease-in-out infinite;
+    z-index: 501;
+    filter: drop-shadow(0 4px 8px #DC354588);
+    transition: all 0.3s ease;
+}
+.contaminated-drop-collectible:hover {
+    transform: scale(1.3) rotate(-10deg);
+    filter: drop-shadow(0 8px 16px #DC3545cc);
+    background: #fff0f3;
+}
+.contaminated-drop-collectible.collected {
+    animation: dropCollect 0.6s ease-out forwards;
+    pointer-events: none;
+    opacity: 0.5;
+}
+@keyframes contaminatedFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(-10deg); }
+}
+/* charity: water SVG Logo Styles */
+.cw-logo-svg, .cw-svg-logo-large {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-bottom: -8px;
+}
+.cw-svg-logo-large {
+    margin-bottom: -18px;
+}
+
+/* Header and Logo Enhancements */
+.cw-logo-svg svg, .cw-svg-logo-large svg {
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(255, 201, 7, 0.25);
+}
+
+.charity-header {
+    background: linear-gradient(90deg, #FFD600 0%, #FFF4CC 100%);
+    border-bottom: 4px solid #FFD600;
+    box-shadow: 0 2px 12px rgba(255, 201, 7, 0.08);
+}
+
+/* Donate Button Icon */
+.donate-link .donate-icon {
+    color: #FFD600;
+    font-size: 1.3em;
+    font-weight: bold;
+    filter: drop-shadow(0 2px 6px #FFD60088);
+}
+
+/* Metric Card Brand Colors */
+.metric-card .metric-icon {
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+    display: block;
+}
+.metric-card.pulsing .metric-icon {
+    color: #FFD600;
+}
+.metric-card.glowing .metric-icon {
+    color: #0074D9;
+}
+.metric-card.success-glow .metric-icon {
+    color: #FFD600;
+}
+.metric-card.impact-glow .metric-icon {
+    color: #0074D9;
+}
+
+/* Collectible Water Drop Brand Style */
+.water-drop-collectible {
+    color: #FFD600;
+    text-shadow: 0 2px 8px #FFD60088, 0 0 2px #000;
+    filter: drop-shadow(0 4px 12px #FFD60088);
+}
+
+/* Bonus Score Display Brand Style */
+.bonus-score-display {
+    border: 2px solid #FFD600;
+    background: linear-gradient(135deg, #FFF4CC 60%, #FFD600 100%);
+    color: #000;
+}
+.bonus-value {
+    color: #FFD600;
+    text-shadow: 0 2px 8px #FFD60088, 0 0 2px #000;
+}
 /* ===========================
    CHARITY:WATER BRAND COLORS & VARIABLES
    Based on official brand guidelines
