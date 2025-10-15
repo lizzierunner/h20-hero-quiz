@@ -65,208 +65,333 @@
     <!-- Welcome Screen -->
     <div id="welcome-screen" class="screen active">
         <div class="welcome-card">
-            <div class="welcome-header">
-                <h1>💧 H2O Hero Quiz 💧</h1>
-                <p class="subtitle">Save the World, One Drop at a Time!</p>
-            </div>
-            <div class="welcome-content">
-                <div class="hero-image">🌍</div>
-                <p class="description">
-                    Join charity:water's mission to bring clean water to everyone. 
-                    Test your knowledge about water access, learn amazing facts, 
-                    and become a real H2O Hero!
-                </p>
-                <div class="stats-preview">
-                    <div class="stat">
-                        <span class="stat-number">771M</span>
-                        <span class="stat-label">People without clean water</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">2.2B</span>
-                        <span class="stat-label">People without basic sanitation</span>
+            <!-- Branded Hero Section -->
+            <div class="branded-hero-section">
+                <!-- charity: water Official Logo Section -->
+                <div class="cw-logo-section">
+                    <div class="cw-official-logo">
+                        <h1 class="cw-brand-name">charity: water</h1>
+                        <p class="cw-tagline">Official Partner</p>
                     </div>
                 </div>
                 
-                <!-- charity: water Mission Section -->
-                <div class="charity-mission-section">
-                    <div class="mission-card" onmousemove="handleMissionCardMove(event)" onmouseleave="resetMissionCard()">
-                        <!-- Floating Water Particles -->
-                        <div class="mission-particles">
-                            <div class="particle particle-1">💧</div>
-                            <div class="particle particle-2">🌊</div>
-                            <div class="particle particle-3">💧</div>
-                            <div class="particle particle-4">🌊</div>
-                            <div class="particle particle-5">💧</div>
-                            <div class="particle particle-6">🌊</div>
-                        </div>
-                        
-                        <!-- Ripple Effect Background -->
-                        <div class="ripple-effect"></div>
-                        
-                        <h3>🤝 Partnered with charity: water</h3>
-                        <p>Join the mission to bring clean and safe drinking water to everyone on the planet. 
-                        100% of your donation goes directly to water projects.</p>
-                        
-                        <!-- Impact Statistics with Animation -->
-                        <div class="impact-stats-preview">
-                            <div class="impact-stat">
-                                <span class="stat-number" data-count="771000000">0</span>
-                                <span class="stat-label">people need clean water</span>
-                            </div>
-                            <div class="impact-stat">
-                                <span class="stat-number" data-count="40">$0</span>
-                                <span class="stat-label">provides water for life</span>
-                            </div>
-                        </div>
-                        
-                        <div class="mission-buttons">
-                            <a href="https://www.charitywater.org/about" target="_blank" rel="noopener noreferrer" class="mission-btn secondary" onclick="triggerRippleEffect(event)">
-                                <span class="btn-icon">📖</span> Learn More
-                                <div class="btn-ripple"></div>
-                            </a>
-                            <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="mission-btn primary spectacular-donate" onclick="triggerDonateEffect(event)">
-                                <span class="btn-icon">💧</span> Donate Now
-                                <div class="btn-glow"></div>
-                                <div class="btn-particles"></div>
-                            </a>
-                        </div>
+                <!-- Glowing Droplet Center -->
+                <div class="hero-droplet-container">
+                    <div class="glowing-droplet">💧</div>
+                    <div class="droplet-sparkles">
+                        <span class="sparkle sparkle-1">✨</span>
+                        <span class="sparkle sparkle-2">⭐</span>
+                        <span class="sparkle sparkle-3">✨</span>
+                        <span class="sparkle sparkle-4">⭐</span>
+                    </div>
+                </div>
+                
+                <!-- Game Title with charity: water Typography -->
+                <div class="game-title-section">
+                    <h1 class="cw-game-title">H2O Hero Quiz</h1>
+                    <p class="cw-subtitle">Join charity: water's mission to end the global water crisis</p>
+                </div>
+            </div>
+            
+            <!-- Mission Description -->
+            <div class="mission-description">
+                <p class="mission-text">
+                    🌊 Learn about clean water access, test your knowledge, and discover how every 
+                    correct answer helps fund real water projects around the world! 💧
+                </p>
+            </div>
+            
+            <!-- charity: water Impact Metrics -->
+            <div class="cw-impact-metrics">
+                <h3 class="metrics-title">Real Impact Data</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card pulsing">
+                        <div class="metric-icon">💧</div>
+                        <div class="metric-number" data-count="703000000">703M</div>
+                        <div class="metric-label">lack clean water at home</div>
+                    </div>
+                    <div class="metric-card glowing">
+                        <div class="metric-icon">🚰</div>
+                        <div class="metric-number" data-count="1500000000">1.5B</div>
+                        <div class="metric-label">lack safe sanitation</div>
+                    </div>
+                    <div class="metric-card success-glow">
+                        <div class="metric-icon">🏆</div>
+                        <div class="metric-number" data-count="91000">91,000+</div>
+                        <div class="metric-label">water projects funded by c:w</div>
+                    </div>
+                    <div class="metric-card impact-glow">
+                        <div class="metric-icon">💎</div>
+                        <div class="metric-number" data-count="16800000">16.8M+</div>
+                        <div class="metric-label">people served by charity: water</div>
                     </div>
                 </div>
             </div>
-            <button class="start-btn" onclick="startGame()">Start Your Mission 🚀</button>
+            
+            <!-- charity: water Style CTA Buttons -->
+            <div class="cw-cta-buttons">
+                <button class="cw-primary-btn" onclick="startGame()">
+                    <span class="btn-icon">🌟</span>
+                    <span class="btn-text">START MISSION</span>
+                    <div class="btn-ripple-effect"></div>
+                </button>
+                
+                <a href="https://www.charitywater.org" target="_blank" rel="noopener noreferrer" class="cw-secondary-btn" onclick="triggerRippleEffect(event)">
+                    <span class="btn-icon">�</span>
+                    <span class="btn-text">Visit charity: water</span>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Character Creation Screen -->
     <div id="character-creation-screen" class="screen">
-        <div class="creation-container">
-            <div class="creation-header">
-                <h1>🎭 Create Your H2O Hero</h1>
-                <p>Choose your character and name to begin your water mission!</p>
-            </div>
-
-            <div class="progress-steps">
-                <div class="step active" data-step="avatar">
-                    <span class="step-number">1</span>
-                    <span class="step-label">Avatar</span>
+        <!-- Avatar Selection Screen -->
+        <div id="avatar-selection-screen" class="creation-step active">
+            <div class="avatar-screen-container">
+                <!-- Header Section -->
+                <div class="avatar-header-section">
+                    <h1 class="step-indicator">👑 Step 1/3 👑</h1>
+                    <h2 class="screen-title">✨ Create Your H2O Hero ✨</h2>
+                    <p class="screen-subtitle">⚡ Choose Your Champion ⚡</p>
                 </div>
-                <div class="step" data-step="name">
-                    <span class="step-number">2</span>
-                    <span class="step-label">Name</span>
-                </div>
-                <div class="step" data-step="confirm">
-                    <span class="step-number">3</span>
-                    <span class="step-label">Confirm</span>
-                </div>
-            </div>
-
-            <div class="character-creation" id="character-creation">
                 
-                <!-- Step 1: Avatar Selection -->
-                <div class="creation-step active" id="avatar-step">
-                    <h2>🎭 Choose Your Avatar</h2>
-                    <div class="magic-sparkles"></div>
+                <!-- Floating Stars & Bubbles Background -->
+                <div class="floating-background-effects">
+                    <div class="floating-star star-1">⭐</div>
+                    <div class="floating-star star-2">✨</div>
+                    <div class="floating-star star-3">🌟</div>
+                    <div class="floating-bubble bubble-1">🫧</div>
+                    <div class="floating-bubble bubble-2">💧</div>
+                    <div class="floating-bubble bubble-3">🫧</div>
+                </div>
+                
+                <!-- Avatar Grid -->
+                <div class="avatar-grid-section">
+                    <h3 class="grid-title">🎭 Choose Your Avatar 🎭</h3>
                     <div class="avatar-grid">
-                        <div class="avatar-option" onclick="selectAvatar('water-mage')" data-tooltip="Water Mage: Harnesses the power of clean water magic to bring life-giving sources to communities worldwide, specializing in charity:water's mission">
+                        <div class="avatar-option glow-effect" onclick="selectAvatar('water-mage')" data-tooltip="Water Mage: Mystic Waves - Harnesses ancient water magic">
                             <div class="avatar-image">🧙‍♂️</div>
-                            <span class="avatar-name">Water Mage</span>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Water Mage</h4>
+                                <p class="avatar-subtitle">Mystic Waves</p>
+                            </div>
+                            <div class="selection-ring"></div>
                         </div>
-                        <div class="avatar-option" onclick="selectAvatar('ocean-warrior')" data-tooltip="Ocean Warrior: Fierce protector fighting the water crisis with charity:water, bringing hope and clean water to the world's most vulnerable communities">
-                            <div class="avatar-image">⚔️</div>
-                            <span class="avatar-name">Ocean Warrior</span>
+                        
+                        <div class="avatar-option bounce-effect" onclick="selectAvatar('ocean-warrior')" data-tooltip="Ocean Warrior: Tidal Force - Fierce protector of water sources">
+                            <div class="avatar-image">🌊</div>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Ocean Warrior</h4>
+                                <p class="avatar-subtitle">Tidal Force</p>
+                            </div>
+                            <div class="selection-ring"></div>
                         </div>
-                        <div class="avatar-option" onclick="selectAvatar('hydro-engineer')" data-tooltip="Hydro Engineer: Brilliant builder of charity:water projects, designing wells, pumps, and water systems that serve communities for decades">
-                            <div class="avatar-image">👷‍♂️</div>
-                            <span class="avatar-name">Hydro Engineer</span>
+                        
+                        <div class="avatar-option shine-effect" onclick="selectAvatar('hydro-engineer')" data-tooltip="Hydro Engineer: Tech Solution - Brilliant builder of water systems">
+                            <div class="avatar-image">👷‍♀️</div>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Hydro Engineer</h4>
+                                <p class="avatar-subtitle">Tech Solution</p>
+                            </div>
+                            <div class="selection-ring"></div>
                         </div>
-                        <div class="avatar-option" onclick="selectAvatar('rain-shaman')" data-tooltip="Rain Shaman: Ancient wisdom keeper partnering with charity:water to understand local water needs and sustainable community solutions">
+                        
+                        <div class="avatar-option pulse-effect" onclick="selectAvatar('rain-shaman')" data-tooltip="Rain Shaman: Storm Caller - Ancient wisdom keeper">
                             <div class="avatar-image">🌧️</div>
-                            <span class="avatar-name">Rain Shaman</span>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Rain Shaman</h4>
+                                <p class="avatar-subtitle">Storm Caller</p>
+                            </div>
+                            <div class="selection-ring"></div>
                         </div>
-                        <div class="avatar-option" onclick="selectAvatar('aqua-scientist')" data-tooltip="Aqua Scientist: Research expert testing water quality and developing new technologies for charity:water's global clean water initiatives">
-                            <div class="avatar-image">👩‍🔬</div>
-                            <span class="avatar-name">Aqua Scientist</span>
+                        
+                        <div class="avatar-option spark-effect" onclick="selectAvatar('aqua-scientist')" data-tooltip="Aqua Scientist: Pure Analysis - Research specialist">
+                            <div class="avatar-image"></div>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Aqua Scientist</h4>
+                                <p class="avatar-subtitle">Pure Analysis</p>
+                            </div>
+                            <div class="selection-ring"></div>
                         </div>
-                        <div class="avatar-option" onclick="selectAvatar('tide-ranger')" data-tooltip="Tide Ranger: Swift guardian monitoring charity:water projects with GPS technology, ensuring every donation creates lasting impact">
-                            <div class="avatar-image">🏹</div>
-                            <span class="avatar-name">Tide Ranger</span>
-                        </div>
-                        <div class="avatar-option" onclick="selectAvatar('bubble-guardian')" data-tooltip="Bubble Guardian: Gentle protector maintaining water purity in charity:water communities, ensuring safe drinking water for families">
-                            <div class="avatar-image">💧</div>
-                            <span class="avatar-name">Bubble Guardian</span>
-                        </div>
-                        <div class="avatar-option" onclick="selectAvatar('wave-rider')" data-tooltip="Wave Rider: Adventurous advocate spreading charity:water's message, inspiring others to join the mission of water for all">
+                        
+                        <div class="avatar-option wave-effect" onclick="selectAvatar('tide-ranger')" data-tooltip="Tide Ranger: Wave Rider - Swift water guardian">
                             <div class="avatar-image">🏄‍♂️</div>
-                            <span class="avatar-name">Wave Rider</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 2: Name Selection -->
-                <div class="creation-step" id="name-step">
-                    <h2>📝 Choose Your Hero Name</h2>
-                    <div class="name-selection">
-                        <div class="name-options">
-                            <button class="name-btn" onclick="selectPresetName('Aqua Avenger')">🌊 Aqua Avenger</button>
-                            <button class="name-btn" onclick="selectPresetName('Droplet Defender')">💧 Droplet Defender</button>
-                            <button class="name-btn" onclick="selectPresetName('Splash Captain')">🌊 Splash Captain</button>
-                            <button class="name-btn" onclick="selectPresetName('Hydro Guardian')">💪 Hydro Guardian</button>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Tide Ranger</h4>
+                                <p class="avatar-subtitle">Wave Rider</p>
+                            </div>
+                            <div class="selection-ring"></div>
                         </div>
                         
-                        <div class="custom-name">
-                            <input type="text" id="custom-hero-name" placeholder="Or create your own hero name..." maxlength="20">
-                            <button onclick="selectCustomName()">Create Hero</button>
+                        <div class="avatar-option float-effect" onclick="selectAvatar('bubble-guardian')" data-tooltip="Bubble Guardian: Shield Bubbles - Gentle protector">
+                            <div class="avatar-image">🫧</div>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Bubble Guardian</h4>
+                                <p class="avatar-subtitle">Shield Bubbles</p>
+                            </div>
+                            <div class="selection-ring"></div>
                         </div>
                         
-                        <div class="name-preview" id="name-preview" style="display: none;">
-                            <div class="preview-card">
-                                <div class="preview-avatar" id="preview-avatar">🧙‍♂️</div>
-                                <div class="preview-name" id="preview-name">Hero Name</div>
+                        <div class="avatar-option flow-effect" onclick="selectAvatar('wave-rider')" data-tooltip="Wave Rider: Surf Master - Adventurous water navigator">
+                            <div class="avatar-image">🏄‍♀️</div>
+                            <div class="avatar-details">
+                                <h4 class="avatar-name">Wave Rider</h4>
+                                <p class="avatar-subtitle">Surf Master</p>
                             </div>
+                            <div class="selection-ring"></div>
                         </div>
-                    </div>
-                    
-                    <button class="step-btn disabled" id="name-continue-btn" onclick="continueToConfirm()" disabled>Continue ➡️</button>
-                </div>
-
-                <!-- Step 3: Confirmation -->
-                <div class="creation-step" id="confirm-step">
-                    <h2>✨ Your H2O Hero is Ready!</h2>
-                    <div class="hero-confirmation">
-                        <div class="final-hero-card">
-                            <div class="final-avatar" id="final-avatar">🧙‍♂️</div>
-                            <div class="final-details">
-                                <h3 id="final-name">Hero Name</h3>
-                                <p id="final-class">Water Mage</p>
-                                <div class="hero-stats">
-                                    <div class="stat">
-                                        <span class="stat-label">Level</span>
-                                        <span class="stat-value">1</span>
-                                    </div>
-                                    <div class="stat">
-                                        <span class="stat-label">XP</span>
-                                        <span class="stat-value">0</span>
-                                    </div>
-                                    <div class="stat">
-                                        <span class="stat-label">Mission</span>
-                                        <span class="stat-value">Water Hero</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mission-brief">
-                            <h4>🎯 Your Mission</h4>
-                            <p>As a charity:water hero, you'll answer questions about global water access, learn incredible facts, and help raise awareness about the water crisis. Every correct answer brings you closer to becoming a true H2O Hero!</p>
-                        </div>
-                    </div>
-                    
-                    <div class="final-buttons">
-                        <button class="step-btn secondary" onclick="goBackToName()">← Go Back</button>
-                        <button class="step-btn primary" onclick="confirmAndStart()">Start Mission! 🚀</button>
                     </div>
                 </div>
-
-                <div class="floating-text" id="floating-text"></div>
+                
+                <!-- Continue Button -->
+                <div class="continue-section">
+                    <button class="continue-adventure-btn" onclick="proceedToNameInput()" disabled>
+                        <span class="btn-text">Continue Adventure 🚀</span>
+                        <div class="btn-magic-sparkles"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Name Input Screen -->
+        <div id="name-input-screen" class="creation-step">
+            <div class="name-screen-container">
+                <!-- Header Magic -->
+                <div class="name-header-section">
+                    <h1 class="step-indicator">✨ Step 2/3 ✨</h1>
+                    <h2 class="screen-title">🌟 Name Your Hero 🌟</h2>
+                    <p class="screen-subtitle">🌟 Name Your Legend 🌟</p>
+                </div>
+                
+                <!-- Floating Stars & Magical Sparkles -->
+                <div class="magical-background-effects">
+                    <div class="magic-sparkle sparkle-1">✨</div>
+                    <div class="magic-sparkle sparkle-2">🌟</div>
+                    <div class="magic-sparkle sparkle-3">⭐</div>
+                    <div class="magic-sparkle sparkle-4">✨</div>
+                    <div class="magic-sparkle sparkle-5">🌟</div>
+                </div>
+                
+                <!-- Input Section -->
+                <div class="name-input-section">
+                    <label class="input-label">✏️ Your Hero Name</label>
+                    <div class="name-input-container">
+                        <input type="text" id="hero-name-input" class="hero-name-input" placeholder="Enter your hero name..." maxlength="20" oninput="handleNameInput()">
+                        <div class="input-glow-border"></div>
+                    </div>
+                    <p class="name-feedback" id="name-feedback">Great choice! 🎉</p>
+                </div>
+                
+                <!-- Legendary Suggestions -->
+                <div class="legendary-suggestions">
+                    <h3 class="suggestions-title">💡 Legendary Suggestions 💡</h3>
+                    <div class="suggestions-grid">
+                        <div class="suggestion-card bounce-suggestion" onclick="selectSuggestedName('Aqua Avenger')">
+                            <span class="suggestion-icon">⚡</span>
+                            <span class="suggestion-name">Aqua Avenger</span>
+                        </div>
+                        <div class="suggestion-card glow-suggestion" onclick="selectSuggestedName('Droplet Defender')">
+                            <span class="suggestion-icon">🛡️</span>
+                            <span class="suggestion-name">Droplet Defender</span>
+                        </div>
+                        <div class="suggestion-card shine-suggestion" onclick="selectSuggestedName('Splash Captain')">
+                            <span class="suggestion-icon">🎖️</span>
+                            <span class="suggestion-name">Splash Captain</span>
+                        </div>
+                        <div class="suggestion-card pulse-suggestion" onclick="selectSuggestedName('Hydro Guardian')">
+                            <span class="suggestion-icon">🌟</span>
+                            <span class="suggestion-name">Hydro Guardian</span>
+                        </div>
+                        <div class="suggestion-card float-suggestion" onclick="selectSuggestedName('Wave Whisperer')">
+                            <span class="suggestion-icon">💫</span>
+                            <span class="suggestion-name">Wave Whisperer</span>
+                        </div>
+                        <div class="suggestion-card magic-suggestion" onclick="selectSuggestedName('Flow Master')">
+                            <span class="suggestion-icon">🔮</span>
+                            <span class="suggestion-name">Flow Master</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Continue Quest -->
+                <div class="continue-section">
+                    <button class="continue-quest-btn" onclick="proceedToConfirmation()" disabled>
+                        <span class="btn-text">Continue Quest 🚀</span>
+                        <div class="btn-gradient-pulse"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Character Confirmation Screen -->
+        <div id="character-confirmation-screen" class="creation-step">
+            <div class="confirmation-screen-container">
+                <!-- Royal Header -->
+                <div class="confirmation-header-section">
+                    <h1 class="step-indicator">👑 Step 3/3 👑</h1>
+                    <h2 class="screen-title">⚡ Your H2O Hero ⚡</h2>
+                    <p class="screen-subtitle">⚡ Your Epic Hero ⚡</p>
+                </div>
+                
+                <!-- Floating Sparkles & Magical Aura -->
+                <div class="aura-background-effects">
+                    <div class="magical-aura aura-1"></div>
+                    <div class="magical-aura aura-2"></div>
+                    <div class="magical-aura aura-3"></div>
+                </div>
+                
+                <!-- Character Showcase -->
+                <div class="character-showcase">
+                    <div class="showcase-card">
+                        <div class="sparkle-border">
+                            <div class="corner-sparkle sparkle-tl">✨</div>
+                            <div class="corner-sparkle sparkle-tr">✨</div>
+                            <div class="corner-sparkle sparkle-bl">✨</div>
+                            <div class="corner-sparkle sparkle-br">✨</div>
+                        </div>
+                        
+                        <div class="hero-avatar-display" id="confirmation-avatar">🧙‍♂️</div>
+                        <h3 class="hero-name-display" id="confirmation-name">[HERO NAME]</h3>
+                        <p class="hero-class-display" id="confirmation-class">Water Mage</p>
+                        
+                        <div class="hero-stats">
+                            <span class="stat-item">👑 Level 1</span>
+                            <span class="stat-item">⚡0 XP</span>
+                        </div>
+                        
+                        <p class="hero-description" id="hero-description">
+                            "Harness ancient water magic to bring hope to communities in need..."
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Mission Briefing -->
+                <div class="mission-briefing">
+                    <h3 class="briefing-title">🛡️ Mission Briefing 🛡️</h3>
+                    <div class="briefing-content">
+                        <p class="briefing-text">
+                            🎯 Welcome, <span id="briefing-hero-name">[HERO NAME]</span>! Your epic mission awaits...
+                        </p>
+                        <p class="briefing-text">
+                            Each correct answer helps communities around the world gain access to clean water.
+                        </p>
+                        <p class="briefing-question">
+                            🌟 Are you ready to become a legendary water hero? 🌊
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="confirmation-actions">
+                    <button class="go-back-btn" onclick="goBackToNameInput()">
+                        <span class="btn-text">← Go Back</span>
+                    </button>
+                    <button class="start-mission-btn" onclick="startEpicMission()">
+                        <span class="btn-text">🎯 Start Mission 🚀</span>
+                        <div class="epic-gradient-effect"></div>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -598,7 +598,6 @@ const effectsSystem = {
                 setTimeout(() => sparkle.remove(), 1200 + (i * 100));
             }
         }
-    }
 };
 
 // Game State Management (Enhanced)
@@ -1529,6 +1528,383 @@ document.addEventListener('keydown', (e) => {
         konamiCode = [];
     }
 });
+
+// ===========================
+// WIREFRAME-COMPLIANT NAVIGATION SYSTEM
+// ===========================
+
+// Update existing gameState for wireframe flow
+Object.assign(gameState, {
+    currentScreen: 'welcome',
+    selectedAvatar: null
+});
+
+// Update existing avatarData with wireframe specifications
+Object.assign(avatarData, {
+    'water-mage': {
+        emoji: '🧙‍♂️',
+        name: 'Water Mage',
+        subtitle: 'Mystic Waves',
+        description: 'Harness ancient water magic to bring hope to communities in need...'
+    },
+    'ocean-warrior': {
+        emoji: '🌊',
+        name: 'Ocean Warrior',
+        subtitle: 'Tidal Force', 
+        description: 'Channel the power of the ocean to protect water sources worldwide...'
+    },
+    'hydro-engineer': {
+        emoji: '👷‍♀️',
+        name: 'Hydro Engineer',
+        subtitle: 'Tech Solution',
+        description: 'Build innovative water systems that serve communities for decades...'
+    },
+    'rain-shaman': {
+        emoji: '🌧️',
+        name: 'Rain Shaman',
+        subtitle: 'Storm Caller',
+        description: 'Ancient wisdom guides the flow of water to those who need it most...'
+    },
+    'aqua-scientist': {
+        emoji: '🔬',
+        name: 'Aqua Scientist',
+        subtitle: 'Pure Analysis',
+        description: 'Research and develop cutting-edge water purification technologies...'
+    },
+    'tide-ranger': {
+        emoji: '🏄‍♂️',
+        name: 'Tide Ranger',
+        subtitle: 'Wave Rider',
+        description: 'Swift guardian protecting water sources across the globe...'
+    },
+    'bubble-guardian': {
+        emoji: '🫧',
+        name: 'Bubble Guardian',
+        subtitle: 'Shield Bubbles',
+        description: 'Gentle protector maintaining water purity for all communities...'
+    },
+    'wave-rider': {
+        emoji: '🏄‍♀️',
+        name: 'Wave Rider',
+        subtitle: 'Surf Master',
+        description: 'Adventurous navigator riding waves of change for water access...'
+    }
+});
+
+// Enhanced avatar selection with wireframe effects
+function selectAvatar(avatarType) {
+    // Remove previous selections
+    document.querySelectorAll('.avatar-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    // Select current avatar
+    event.target.closest('.avatar-option').classList.add('selected');
+    
+    // Store selection
+    gameState.selectedAvatar = avatarType;
+    gameState.heroClass = avatarData[avatarType].name;
+    gameState.heroAvatar = avatarType;
+    
+    // Enable continue button
+    const continueBtn = document.querySelector('.continue-adventure-btn');
+    if (continueBtn) {
+        continueBtn.disabled = false;
+        continueBtn.style.animation = 'button-activate 0.5s ease-out';
+    }
+    
+    // Play selection sound
+    playSound('successSound');
+    
+    // Add spectacular selection effect
+    createAvatarSelectionEffect(event.target.closest('.avatar-option'));
+}
+
+// Create spectacular avatar selection effect
+function createAvatarSelectionEffect(element) {
+    // Create sparkle burst
+    for (let i = 0; i < 12; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.innerHTML = '✨';
+        sparkle.style.position = 'absolute';
+        sparkle.style.top = '50%';
+        sparkle.style.left = '50%';
+        sparkle.style.fontSize = '1.5rem';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '1000';
+        
+        element.appendChild(sparkle);
+        
+        const angle = (i / 12) * 2 * Math.PI;
+        const distance = 60;
+        const endX = Math.cos(angle) * distance;
+        const endY = Math.sin(angle) * distance;
+        
+        sparkle.animate([
+            { transform: 'translate(-50%, -50%) scale(0)', opacity: 1 },
+            { transform: `translate(${endX - 50}%, ${endY - 50}%) scale(1.5)`, opacity: 0 }
+        ], {
+            duration: 1000,
+            easing: 'ease-out'
+        });
+        
+        setTimeout(() => sparkle.remove(), 1000);
+    }
+}
+
+// Navigate to name input screen
+function proceedToNameInput() {
+    if (!gameState.selectedAvatar) return;
+    
+    // Hide avatar selection
+    document.getElementById('avatar-selection-screen').classList.remove('active');
+    
+    // Show name input
+    document.getElementById('name-input-screen').classList.add('active');
+    
+    // Focus on input
+    setTimeout(() => {
+        const nameInput = document.getElementById('hero-name-input');
+        if (nameInput) nameInput.focus();
+    }, 300);
+    
+    playSound('successSound');
+}
+
+// Handle name input with real-time feedback
+function handleNameInput() {
+    const input = document.getElementById('hero-name-input');
+    const feedback = document.getElementById('name-feedback');
+    const continueBtn = document.querySelector('.continue-quest-btn');
+    
+    const name = input.value.trim();
+    
+    if (name.length > 0) {
+        gameState.heroName = name;
+        feedback.textContent = `Great choice, ${name}! 🎉`;
+        feedback.style.display = 'block';
+        if (continueBtn) continueBtn.disabled = false;
+        
+        // Add input glow effect
+        input.style.boxShadow = '0 0 20px rgba(87, 197, 182, 0.5)';
+    } else {
+        feedback.style.display = 'none';
+        if (continueBtn) continueBtn.disabled = true;
+        input.style.boxShadow = '';
+    }
+}
+
+// Select suggested name
+function selectSuggestedName(name) {
+    const input = document.getElementById('hero-name-input');
+    if (input) {
+        input.value = name;
+        handleNameInput();
+    }
+    
+    // Add selection effect to the clicked suggestion
+    const suggestionCards = document.querySelectorAll('.suggestion-card');
+    suggestionCards.forEach(card => card.classList.remove('selected'));
+    event.target.closest('.suggestion-card').classList.add('selected');
+    
+    playSound('successSound');
+}
+
+// Navigate to confirmation screen
+function proceedToConfirmation() {
+    if (!gameState.heroName) return;
+    
+    // Hide name input
+    document.getElementById('name-input-screen').classList.remove('active');
+    
+    // Show confirmation
+    document.getElementById('character-confirmation-screen').classList.add('active');
+    
+    // Update confirmation display
+    updateConfirmationDisplay();
+    
+    playSound('successSound');
+}
+
+// Update confirmation screen with hero data
+function updateConfirmationDisplay() {
+    const currentAvatarData = getCurrentAvatarData();
+    
+    // Update avatar display
+    const confirmationAvatar = document.getElementById('confirmation-avatar');
+    if (confirmationAvatar) {
+        confirmationAvatar.textContent = currentAvatarData.emoji;
+    }
+    
+    // Update name display
+    const confirmationName = document.getElementById('confirmation-name');
+    if (confirmationName) {
+        confirmationName.textContent = gameState.heroName;
+    }
+    
+    // Update class display
+    const confirmationClass = document.getElementById('confirmation-class');
+    if (confirmationClass) {
+        confirmationClass.textContent = currentAvatarData.name;
+    }
+    
+    // Update description
+    const heroDescription = document.getElementById('hero-description');
+    if (heroDescription) {
+        heroDescription.textContent = currentAvatarData.description;
+    }
+    
+    // Update briefing name
+    const briefingName = document.getElementById('briefing-hero-name');
+    if (briefingName) {
+        briefingName.textContent = gameState.heroName;
+    }
+}
+
+// Get current avatar data
+function getCurrentAvatarData() {
+    return avatarData[gameState.selectedAvatar] || avatarData['water-mage'];
+}
+
+// Go back to name input
+function goBackToNameInput() {
+    document.getElementById('character-confirmation-screen').classList.remove('active');
+    document.getElementById('name-input-screen').classList.add('active');
+    
+    // Re-focus input
+    setTimeout(() => {
+        const nameInput = document.getElementById('hero-name-input');
+        if (nameInput) nameInput.focus();
+    }, 300);
+}
+
+// Start epic mission (transition to quiz)
+function startEpicMission() {
+    // Create epic transition effect
+    createEpicTransitionEffect();
+    
+    // Hide character creation
+    setTimeout(() => {
+        document.getElementById('character-creation-screen').classList.remove('active');
+        document.getElementById('game-screen').classList.add('active');
+        
+        // Initialize quiz with hero data
+        initializeQuizWithHero();
+        
+        playSound('levelUpSound');
+    }, 1000);
+}
+
+// Create epic transition effect
+function createEpicTransitionEffect() {
+    const container = document.body;
+    
+    // Create transition overlay
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.background = 'linear-gradient(45deg, #1A5F7A, #57C5B6, #FFD700)';
+    overlay.style.zIndex = '9999';
+    overlay.style.opacity = '0';
+    
+    container.appendChild(overlay);
+    
+    // Animate transition
+    overlay.animate([
+        { opacity: 0 },
+        { opacity: 1 },
+        { opacity: 0 }
+    ], {
+        duration: 1000,
+        easing: 'ease-in-out'
+    });
+    
+    // Create epic text
+    const epicText = document.createElement('div');
+    epicText.innerHTML = '⚡ MISSION STARTING ⚡';
+    epicText.style.position = 'absolute';
+    epicText.style.top = '50%';
+    epicText.style.left = '50%';
+    epicText.style.transform = 'translate(-50%, -50%)';
+    epicText.style.fontSize = '3rem';
+    epicText.style.fontWeight = 'bold';
+    epicText.style.color = 'white';
+    epicText.style.textShadow = '0 4px 8px rgba(0,0,0,0.5)';
+    epicText.style.animation = 'epic-text-appear 1s ease-out';
+    
+    overlay.appendChild(epicText);
+    
+    // Remove overlay after animation
+    setTimeout(() => {
+        overlay.remove();
+    }, 1000);
+}
+
+// Initialize quiz with hero data
+function initializeQuizWithHero() {
+    const currentAvatarData = getCurrentAvatarData();
+    
+    // Update game interface with hero
+    const gameAvatar = document.getElementById('game-avatar');
+    if (gameAvatar) {
+        gameAvatar.textContent = currentAvatarData.emoji;
+    }
+    
+    const gameHeroName = document.getElementById('game-hero-name');
+    if (gameHeroName) {
+        gameHeroName.textContent = gameState.heroName;
+    }
+    
+    const gameHeroClass = document.getElementById('game-hero-class');
+    if (gameHeroClass) {
+        gameHeroClass.textContent = currentAvatarData.name;
+    }
+    
+    // Start the quiz
+    startQuiz();
+}
+
+// Enhanced start game function for wireframe flow
+function startGame() {
+    // Hide welcome screen
+    document.getElementById('welcome-screen').classList.remove('active');
+    
+    // Show character creation (avatar selection first)
+    document.getElementById('character-creation-screen').classList.add('active');
+    document.getElementById('avatar-selection-screen').classList.add('active');
+    
+    // Initialize spectacular background effects
+    initSpectacularEffects();
+    
+    playSound('successSound');
+}
+
+// Add CSS animation for button activation
+const buttonActivateStyle = document.createElement('style');
+buttonActivateStyle.textContent = `
+    @keyframes button-activate {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes epic-text-appear {
+        0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); opacity: 0; }
+        50% { transform: translate(-50%, -50%) scale(1.2) rotate(0deg); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+    }
+    
+    .suggestion-card.selected {
+        background: linear-gradient(135deg, #FFD700, #FFF4CC);
+        border-color: #FFD700;
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+`;
+document.head.appendChild(buttonActivateStyle);
 
 // charity: water integration functions
 function visitCharityWater() {
