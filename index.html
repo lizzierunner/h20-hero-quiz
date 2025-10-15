@@ -14,14 +14,32 @@
     
     <!-- charity: water Header -->
     <div id="charity-water-header" class="charity-header">
+        <!-- Animated Water Droplets -->
+        <div class="water-droplets">
+            <div class="droplet droplet-1">💧</div>
+            <div class="droplet droplet-2">💧</div>
+            <div class="droplet droplet-3">💧</div>
+            <div class="droplet droplet-4">💧</div>
+            <div class="droplet droplet-5">💧</div>
+        </div>
+        
+        <!-- Flowing Water Animation -->
+        <div class="water-flow"></div>
+        
         <div class="charity-logo">
             <a href="https://www.charitywater.org" target="_blank" rel="noopener noreferrer">
                 <span class="charity-name">charity: water</span>
+                <div class="logo-sparkle">✨</div>
             </a>
         </div>
         <div class="charity-nav">
-            <a href="https://www.charitywater.org/about" target="_blank" rel="noopener noreferrer" class="charity-link">About Us</a>
-            <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="charity-link donate-link">💧 Donate</a>
+            <a href="https://www.charitywater.org/about" target="_blank" rel="noopener noreferrer" class="charity-link">
+                <span class="link-icon">📖</span> About Us
+            </a>
+            <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="charity-link donate-link" onclick="triggerDonateEffect(event)">
+                <span class="donate-icon">💧</span> Donate
+                <div class="donate-pulse"></div>
+            </a>
         </div>
     </div>
     
@@ -34,6 +52,14 @@
     </audio>
     <audio id="levelUpSound" preload="auto">
         <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBStPp+DxtWEcCS6S1/LNeCsFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBS2R1+7Pdy0FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1/DOeC4FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkT" type="audio/wav">
+    </audio>
+    
+    <!-- charity: water Themed Audio Effects -->
+    <audio id="waterDropSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRvIGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YW4GAAACAgICAgICAgICAf//AgICAgICAgICAgICAf//AgICAgIC" type="audio/wav">
+    </audio>
+    <audio id="donateCheerSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBStPp+DxtWEcCS6S1/LNeCsFJHfH8N2QQAoUXrTp66hVFApGn+LyvmkcBS2R1+7Pdy0FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1/DOeC4FJHbH8d2QQAoUXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkTXbPq66hVFApGnt7wv2wcBSyQ1+7Pdy0FJHbH8d2QQAoUXbTp66hVFApGn+LyvmkcBS2S1vDPeC0EI3bH8dyOQAkT" type="audio/wav">
     </audio>
 
     <!-- Welcome Screen -->
@@ -63,16 +89,45 @@
                 
                 <!-- charity: water Mission Section -->
                 <div class="charity-mission-section">
-                    <div class="mission-card">
+                    <div class="mission-card" onmousemove="handleMissionCardMove(event)" onmouseleave="resetMissionCard()">
+                        <!-- Floating Water Particles -->
+                        <div class="mission-particles">
+                            <div class="particle particle-1">💧</div>
+                            <div class="particle particle-2">🌊</div>
+                            <div class="particle particle-3">💧</div>
+                            <div class="particle particle-4">🌊</div>
+                            <div class="particle particle-5">💧</div>
+                            <div class="particle particle-6">🌊</div>
+                        </div>
+                        
+                        <!-- Ripple Effect Background -->
+                        <div class="ripple-effect"></div>
+                        
                         <h3>🤝 Partnered with charity: water</h3>
                         <p>Join the mission to bring clean and safe drinking water to everyone on the planet. 
                         100% of your donation goes directly to water projects.</p>
+                        
+                        <!-- Impact Statistics with Animation -->
+                        <div class="impact-stats-preview">
+                            <div class="impact-stat">
+                                <span class="stat-number" data-count="771000000">0</span>
+                                <span class="stat-label">people need clean water</span>
+                            </div>
+                            <div class="impact-stat">
+                                <span class="stat-number" data-count="40">$0</span>
+                                <span class="stat-label">provides water for life</span>
+                            </div>
+                        </div>
+                        
                         <div class="mission-buttons">
-                            <a href="https://www.charitywater.org/about" target="_blank" rel="noopener noreferrer" class="mission-btn secondary">
-                                📖 Learn More
+                            <a href="https://www.charitywater.org/about" target="_blank" rel="noopener noreferrer" class="mission-btn secondary" onclick="triggerRippleEffect(event)">
+                                <span class="btn-icon">📖</span> Learn More
+                                <div class="btn-ripple"></div>
                             </a>
-                            <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="mission-btn primary">
-                                💧 Donate Now
+                            <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="mission-btn primary spectacular-donate" onclick="triggerDonateEffect(event)">
+                                <span class="btn-icon">💧</span> Donate Now
+                                <div class="btn-glow"></div>
+                                <div class="btn-particles"></div>
                             </a>
                         </div>
                     </div>
@@ -392,22 +447,58 @@
                 
                 <!-- charity: water Call to Action -->
                 <div class="charity-cta-section">
-                    <div class="cta-card">
+                    <div class="cta-card" onmousemove="handleCtaCardMove(event)" onmouseleave="resetCtaCard()">
+                        <!-- Animated Water Waves -->
+                        <div class="water-waves">
+                            <div class="wave wave-1"></div>
+                            <div class="wave wave-2"></div>
+                            <div class="wave wave-3"></div>
+                        </div>
+                        
+                        <!-- Floating Impact Particles -->
+                        <div class="impact-particles">
+                            <div class="impact-particle">💧</div>
+                            <div class="impact-particle">🌍</div>
+                            <div class="impact-particle">💧</div>
+                            <div class="impact-particle">🌟</div>
+                            <div class="impact-particle">💧</div>
+                            <div class="impact-particle">🤝</div>
+                        </div>
+                        
                         <div class="cta-header">
                             <h3>🌍 Make a Real Impact</h3>
                             <p>You've learned about the water crisis. Now help solve it!</p>
                         </div>
                         <div class="cta-content">
-                            <div class="impact-fact">
-                                <span class="fact-icon">💧</span>
+                            <div class="impact-fact spectacular-fact">
+                                <span class="fact-icon animated-drop">💧</span>
                                 <span class="fact-text">Just $40 can provide clean water for one person for life</span>
+                                <div class="fact-glow"></div>
                             </div>
+                            
+                            <!-- Real-time Impact Counter -->
+                            <div class="live-impact-counter">
+                                <div class="counter-item">
+                                    <span class="counter-number" id="people-served">0</span>
+                                    <span class="counter-label">people served today</span>
+                                </div>
+                                <div class="counter-item">
+                                    <span class="counter-number" id="projects-funded">0</span>
+                                    <span class="counter-label">projects funded this year</span>
+                                </div>
+                            </div>
+                            
                             <div class="cta-buttons">
-                                <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="cta-btn primary">
-                                    🎯 Donate to charity: water
+                                <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener noreferrer" class="cta-btn primary mega-donate" onclick="triggerMegaDonateEffect(event)">
+                                    <span class="btn-icon pulsing-heart">💙</span>
+                                    <span class="btn-text">Donate to charity: water</span>
+                                    <div class="btn-particles-burst"></div>
+                                    <div class="btn-rainbow-glow"></div>
                                 </a>
-                                <a href="https://www.charitywater.org/about" target="_blank" rel="noopener noreferrer" class="cta-btn secondary">
-                                    📚 Learn About Our Mission
+                                <a href="https://www.charitywater.org/about" target="_blank" rel="noopener noreferrer" class="cta-btn secondary" onclick="triggerRippleEffect(event)">
+                                    <span class="btn-icon">📚</span>
+                                    <span class="btn-text">Learn About Our Mission</span>
+                                    <div class="btn-ripple"></div>
                                 </a>
                             </div>
                         </div>

@@ -1543,6 +1543,379 @@ function learnAboutCharityWater() {
     window.open('https://www.charitywater.org/about', '_blank', 'noopener,noreferrer');
 }
 
+// ===========================
+// SPECTACULAR CHARITY:WATER EFFECTS
+// ===========================
+
+// 3D Card Movement Effects
+function handleMissionCardMove(event) {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+}
+
+function resetMissionCard() {
+    const card = document.querySelector('.mission-card');
+    if (card) {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+    }
+}
+
+function handleCtaCardMove(event) {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 15;
+    const rotateY = (centerX - x) / 15;
+    
+    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+}
+
+function resetCtaCard() {
+    const card = document.querySelector('.cta-card');
+    if (card) {
+        card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)';
+    }
+}
+
+// Ripple Effect on Button Click
+function triggerRippleEffect(event) {
+    const button = event.currentTarget;
+    const ripple = button.querySelector('.btn-ripple');
+    
+    if (ripple) {
+        ripple.style.width = '300px';
+        ripple.style.height = '300px';
+        
+        setTimeout(() => {
+            ripple.style.width = '0';
+            ripple.style.height = '0';
+        }, 600);
+    }
+    
+    // Add success sound effect
+    playSound('successSound');
+}
+
+// Spectacular Donate Button Effect
+function triggerDonateEffect(event) {
+    const button = event.currentTarget;
+    
+    // Create fireworks effect
+    createDonateFireworks(button);
+    
+    // Create floating hearts
+    createFloatingHearts(button);
+    
+    // Screen flash effect
+    createDonateFlash();
+    
+    // Play level up sound for donation
+    playSound('levelUpSound');
+    
+    // Show thank you message
+    setTimeout(() => {
+        showDonateThankYou();
+    }, 500);
+}
+
+// Mega Donate Effect (for CTA section)
+function triggerMegaDonateEffect(event) {
+    const button = event.currentTarget;
+    
+    // Create massive fireworks
+    createMegaDonateFireworks();
+    
+    // Create particle explosion
+    createDonateParticleExplosion(button);
+    
+    // Create rainbow flash
+    createRainbowFlash();
+    
+    // Show spectacular thank you
+    setTimeout(() => {
+        showMegaDonateThankYou();
+    }, 1000);
+    
+    // Play success sound
+    playSound('levelUpSound');
+}
+
+// Create Fireworks for Donate Button
+function createDonateFireworks(sourceElement) {
+    const container = document.getElementById('fireworks-container') || document.body;
+    
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const firework = document.createElement('div');
+            firework.className = 'donate-firework';
+            firework.style.position = 'fixed';
+            firework.style.left = Math.random() * window.innerWidth + 'px';
+            firework.style.top = Math.random() * window.innerHeight + 'px';
+            firework.style.width = '4px';
+            firework.style.height = '4px';
+            firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            firework.style.borderRadius = '50%';
+            firework.style.pointerEvents = 'none';
+            firework.style.zIndex = '9999';
+            
+            container.appendChild(firework);
+            
+            // Animate firework
+            firework.animate([
+                { transform: 'scale(0)', opacity: 1 },
+                { transform: 'scale(20)', opacity: 0 }
+            ], {
+                duration: 1000,
+                easing: 'ease-out'
+            });
+            
+            setTimeout(() => firework.remove(), 1000);
+        }, i * 100);
+    }
+}
+
+// Create Mega Fireworks for CTA
+function createMegaDonateFireworks() {
+    const container = document.getElementById('fireworks-container') || document.body;
+    
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const firework = document.createElement('div');
+            firework.innerHTML = ['💧', '🌟', '💙', '✨', '🎆'][Math.floor(Math.random() * 5)];
+            firework.style.position = 'fixed';
+            firework.style.left = Math.random() * window.innerWidth + 'px';
+            firework.style.top = Math.random() * window.innerHeight + 'px';
+            firework.style.fontSize = '2rem';
+            firework.style.pointerEvents = 'none';
+            firework.style.zIndex = '9999';
+            
+            container.appendChild(firework);
+            
+            // Animate mega firework
+            firework.animate([
+                { transform: 'scale(0) rotate(0deg)', opacity: 1 },
+                { transform: 'scale(2) rotate(360deg)', opacity: 0 }
+            ], {
+                duration: 2000,
+                easing: 'ease-out'
+            });
+            
+            setTimeout(() => firework.remove(), 2000);
+        }, i * 50);
+    }
+}
+
+// Create Floating Hearts
+function createFloatingHearts(sourceElement) {
+    const rect = sourceElement.getBoundingClientRect();
+    
+    for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💙';
+            heart.style.position = 'fixed';
+            heart.style.left = (rect.left + rect.width / 2) + 'px';
+            heart.style.top = (rect.top + rect.height / 2) + 'px';
+            heart.style.fontSize = '1.5rem';
+            heart.style.pointerEvents = 'none';
+            heart.style.zIndex = '9999';
+            
+            document.body.appendChild(heart);
+            
+            const angle = (i / 12) * 2 * Math.PI;
+            const distance = 100 + Math.random() * 100;
+            const endX = rect.left + rect.width / 2 + Math.cos(angle) * distance;
+            const endY = rect.top + rect.height / 2 + Math.sin(angle) * distance - 100;
+            
+            heart.animate([
+                { transform: 'translate(0, 0) scale(0)', opacity: 1 },
+                { transform: `translate(${endX - rect.left - rect.width / 2}px, ${endY - rect.top - rect.height / 2}px) scale(1.5)`, opacity: 0 }
+            ], {
+                duration: 2000,
+                easing: 'ease-out'
+            });
+            
+            setTimeout(() => heart.remove(), 2000);
+        }, i * 100);
+    }
+}
+
+// Create Particle Explosion
+function createDonateParticleExplosion(sourceElement) {
+    const rect = sourceElement.getBoundingClientRect();
+    
+    for (let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.left = (rect.left + rect.width / 2) + 'px';
+        particle.style.top = (rect.top + rect.height / 2) + 'px';
+        particle.style.width = '8px';
+        particle.style.height = '8px';
+        particle.style.background = `hsl(${45 + Math.random() * 60}, 100%, 50%)`;
+        particle.style.borderRadius = '50%';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '9999';
+        
+        document.body.appendChild(particle);
+        
+        const angle = Math.random() * 2 * Math.PI;
+        const velocity = 50 + Math.random() * 150;
+        const endX = Math.cos(angle) * velocity;
+        const endY = Math.sin(angle) * velocity;
+        
+        particle.animate([
+            { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+            { transform: `translate(${endX}px, ${endY}px) scale(0)`, opacity: 0 }
+        ], {
+            duration: 1500,
+            easing: 'ease-out'
+        });
+        
+        setTimeout(() => particle.remove(), 1500);
+    }
+}
+
+// Screen Flash Effects
+function createDonateFlash() {
+    const flash = document.createElement('div');
+    flash.style.position = 'fixed';
+    flash.style.top = '0';
+    flash.style.left = '0';
+    flash.style.width = '100vw';
+    flash.style.height = '100vh';
+    flash.style.background = 'rgba(255, 201, 7, 0.3)';
+    flash.style.pointerEvents = 'none';
+    flash.style.zIndex = '9998';
+    
+    document.body.appendChild(flash);
+    
+    flash.animate([
+        { opacity: 0 },
+        { opacity: 1 },
+        { opacity: 0 }
+    ], {
+        duration: 300,
+        easing: 'ease-in-out'
+    });
+    
+    setTimeout(() => flash.remove(), 300);
+}
+
+function createRainbowFlash() {
+    const flash = document.createElement('div');
+    flash.style.position = 'fixed';
+    flash.style.top = '0';
+    flash.style.left = '0';
+    flash.style.width = '100vw';
+    flash.style.height = '100vh';
+    flash.style.background = 'linear-gradient(45deg, #ff0000, #ff8800, #ffff00, #88ff00, #00ff88, #0088ff, #8800ff, #ff0088)';
+    flash.style.pointerEvents = 'none';
+    flash.style.zIndex = '9998';
+    
+    document.body.appendChild(flash);
+    
+    flash.animate([
+        { opacity: 0 },
+        { opacity: 0.4 },
+        { opacity: 0 }
+    ], {
+        duration: 500,
+        easing: 'ease-in-out'
+    });
+    
+    setTimeout(() => flash.remove(), 500);
+}
+
+// Thank You Messages
+function showDonateThankYou() {
+    showAchievementNotification(
+        '💙 Thank You!',
+        'Every donation brings clean water closer to those who need it most!'
+    );
+}
+
+function showMegaDonateThankYou() {
+    showAchievementNotification(
+        '🌟 You\'re Amazing!',
+        'Your generosity is changing lives around the world!'
+    );
+}
+
+// Animated Counter Functions
+function animateCounterNumbers() {
+    // Simulate real-time impact numbers
+    const peopleServed = document.getElementById('people-served');
+    const projectsFunded = document.getElementById('projects-funded');
+    
+    if (peopleServed) {
+        animateNumber(peopleServed, 0, 1234567, 3000);
+    }
+    
+    if (projectsFunded) {
+        animateNumber(projectsFunded, 0, 12045, 3000);
+    }
+}
+
+function animateNumber(element, start, end, duration) {
+    const range = end - start;
+    const minTimer = 50;
+    const stepTime = Math.abs(Math.floor(duration / range));
+    const timer = Math.max(stepTime, minTimer);
+    
+    const startTime = new Date().getTime();
+    const endTime = startTime + duration;
+    
+    function run() {
+        const now = new Date().getTime();
+        const remaining = Math.max((endTime - now) / duration, 0);
+        const value = Math.round(end - (remaining * range));
+        element.textContent = value.toLocaleString();
+        
+        if (value === end) {
+            element.style.animation = 'counter-celebrate 0.5s ease-out';
+        } else {
+            setTimeout(run, timer);
+        }
+    }
+    
+    run();
+}
+
+// Initialize spectacular effects when page loads
+function initSpectacularEffects() {
+    // Start counter animations
+    setTimeout(animateCounterNumbers, 1000);
+    
+    // Add CSS for counter celebration
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes counter-celebrate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); color: var(--cw-yellow); }
+            100% { transform: scale(1); }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Call initialization
+document.addEventListener('DOMContentLoaded', initSpectacularEffects);
+
 // Add keyboard navigation
 document.addEventListener('keydown', (e) => {
     if (e.key >= '1' && e.key <= '4') {
