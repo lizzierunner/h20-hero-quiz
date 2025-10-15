@@ -2,8 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H2O Hero Quiz - Save the World, One Drop at a Time!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.                <a href="https://www.charitywater.org" target="_blank" rel="noopener noreferrer" class="cw-secondary-btn" onclick="triggerRippleEffect(event)">
+                    <span class="btn-icon">🌐</span>
+                    <span class="btn-text">Visit charity: water</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Interactive Collectible Water Drops -->
+        <div class="collectible-drops" id="collectible-drops">
+            <!-- Drops will be dynamically added here -->
+        </div>
+        
+        <!-- Bonus Score Display -->
+        <div class="bonus-score-display" id="bonus-score-display">
+            <div class="bonus-label">🎯 Bonus Drops Collected</div>
+            <div class="bonus-value" id="bonus-drops-count">0</div>
+        </div>
+    </div> <title>H2O Hero Quiz - Save the World, One Drop at a Time!</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -440,6 +456,10 @@
                 </div>
                 
                 <div class="game-stats">
+                    <div class="stat-item score-highlight">
+                        <span class="stat-label">💧 Score</span>
+                        <span class="stat-value score-display" id="score-display">0</span>
+                    </div>
                     <div class="stat-item">
                         <span class="stat-label">Level</span>
                         <span class="stat-value" id="hero-level">1</span>

@@ -1146,6 +1146,9 @@ function selectAnswer(selectedIndex) {
         // SUCCESS - Magnificent celebration!
         gameState.score++;
         
+        // Update score display with spectacular animation
+        updateScoreDisplay();
+        
         // Apply XP multiplier for streaks
         let xpGain = 50;
         if (gameState.doubleXPActive) {
@@ -1162,7 +1165,7 @@ function selectAnswer(selectedIndex) {
         updateStreak(true);
         
         // Audio and spectacular visual celebration
-        audioSystem.playSuccess();
+        playSound('success');
         effectsSystem.screenFlash();
         effectsSystem.particleBurst(selectedButton);
         effectsSystem.waterRipple(selectedButton, { 
@@ -1307,6 +1310,116 @@ function updateProgress() {
 function updateScore() {
     document.getElementById('score-display').textContent = gameState.score;
     document.getElementById('tools-display').textContent = gameState.toolsUnlocked;
+}
+
+// Enhanced score display update with spectacular animation
+function updateScoreDisplay() {
+    const scoreElement = document.getElementById('score-display');
+    if (scoreElement) {
+        // Add animation class
+        scoreElement.classList.add('score-increase');
+        
+        // Update the score with counting animation
+        const startScore = parseInt(scoreElement.textContent);
+        const endScore = gameState.score;
+        const duration = 600;
+        const startTime = Date.now();
+        
+        function animateScore() {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth counting
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const currentScore = Math.floor(startScore + (endScore - startScore) * eased);
+            
+            scoreElement.textContent = currentScore;
+            
+            if (progress < 1) {
+                requestAnimationFrame(animateScore);
+            } else {
+                // Remove animation class after completion
+                setTimeout(() => {
+                    scoreElement.classList.remove('score-increase');
+                }, 200);
+                
+                // Create score celebration effect
+                createScoreCelebration(scoreElement);
+            }
+        }
+        
+        animateScore();
+    }
+}
+
+// Create celebration effect when score increases
+function createScoreCelebration(scoreElement) {
+    const rect = scoreElement.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Create floating +1 indicator
+    const pointsIndicator = document.createElement('div');
+    pointsIndicator.innerHTML = '+1 💧';
+    pointsIndicator.style.cssText = `
+        position: fixed;
+        left: ${centerX}px;
+        top: ${centerY - 20}px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--cw-success);
+        pointer-events: none;
+        z-index: 10000;
+        text-shadow: 0 2px 4px rgba(40, 167, 69, 0.5);
+        transform: translate(-50%, -50%);
+    `;
+    
+    document.body.appendChild(pointsIndicator);
+    
+    // Animate the indicator
+    pointsIndicator.animate([
+        { 
+            transform: 'translate(-50%, -50%) scale(0)',
+            opacity: 0 
+        },
+        { 
+            transform: 'translate(-50%, -80px) scale(1.2)',
+            opacity: 1 
+        },
+        { 
+            transform: 'translate(-50%, -120px) scale(1)',
+            opacity: 0 
+        }
+    ], {
+        duration: 1000,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    });
+    
+    // Create sparkles around the score
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.cssText = `
+                position: fixed;
+                left: ${centerX + (Math.random() - 0.5) * 60}px;
+                top: ${centerY + (Math.random() - 0.5) * 40}px;
+                font-size: 1rem;
+                pointer-events: none;
+                z-index: 9999;
+                animation: sparkleFloat 0.8s ease-out forwards;
+            `;
+            
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 800);
+        }, i * 50);
+    }
+    
+    // Remove the points indicator
+    setTimeout(() => pointsIndicator.remove(), 1000);
+    
+    // Play celebration sound
+    playSound('sparkle');
 }
 
 // Results and Ranking System
@@ -1527,6 +1640,220 @@ document.addEventListener('keydown', (e) => {
         alert('🎮 KONAMI CODE ACTIVATED! 🌊\nYou\'ve unlocked the secret Water Master rank! 💧✨');
         konamiCode = [];
     }
+});
+
+// ===========================
+// INTERACTIVE COLLECTIBLE SYSTEM
+// ===========================
+
+// Game state for collectibles
+let bonusDropsCollected = 0;
+let collectibleDrops = [];
+
+// Initialize collectible water drops system
+function initializeCollectibleDrops() {
+    // Create initial drops on welcome screen
+    createCollectibleDrop();
+    
+    // Create new drops periodically
+    setInterval(() => {
+        if (collectibleDrops.length < 3) { // Max 3 drops at a time
+            createCollectibleDrop();
+        }
+    }, 5000); // New drop every 5 seconds
+}
+
+// Create a single collectible water drop
+function createCollectibleDrop() {
+    const drop = document.createElement('div');
+    drop.className = 'water-drop-collectible';
+    drop.innerHTML = '💧';
+    
+    // Random position
+    const x = Math.random() * (window.innerWidth - 60) + 30;
+    const y = Math.random() * (window.innerHeight - 60) + 30;
+    
+    drop.style.left = x + 'px';
+    drop.style.top = y + 'px';
+    
+    // Add click handler
+    drop.onclick = () => collectDrop(drop);
+    
+    // Add to container and track
+    const container = document.getElementById('collectible-drops');
+    if (container) {
+        container.appendChild(drop);
+        collectibleDrops.push(drop);
+        
+        // Remove drop after 15 seconds if not collected
+        setTimeout(() => {
+            if (drop.parentNode) {
+                removeDrop(drop);
+            }
+        }, 15000);
+    }
+}
+
+// Collect a water drop
+function collectDrop(drop) {
+    // Prevent multiple clicks
+    if (drop.classList.contains('collected')) return;
+    
+    drop.classList.add('collected');
+    
+    // Increase bonus score
+    bonusDropsCollected++;
+    updateBonusDisplay();
+    
+    // Play collection sound
+    playSound('waterDrop');
+    
+    // Create collection effect
+    createCollectionEffect(drop);
+    
+    // Remove from tracking and DOM
+    setTimeout(() => {
+        removeDrop(drop);
+    }, 600);
+    
+    // Add small score bonus to main game if quiz is active
+    if (document.getElementById('game-screen').classList.contains('active')) {
+        // Add bonus XP for collecting during quiz
+        addExperience(25);
+        showBonusMessage('+25 XP Bonus!', drop);
+    }
+}
+
+// Remove drop from tracking
+function removeDrop(drop) {
+    const index = collectibleDrops.indexOf(drop);
+    if (index > -1) {
+        collectibleDrops.splice(index, 1);
+    }
+    if (drop.parentNode) {
+        drop.parentNode.removeChild(drop);
+    }
+}
+
+// Update bonus drops display
+function updateBonusDisplay() {
+    const bonusElement = document.getElementById('bonus-drops-count');
+    if (bonusElement) {
+        bonusElement.classList.add('bonus-increase');
+        bonusElement.textContent = bonusDropsCollected;
+        
+        setTimeout(() => {
+            bonusElement.classList.remove('bonus-increase');
+        }, 800);
+    }
+}
+
+// Create spectacular collection effect
+function createCollectionEffect(drop) {
+    const rect = drop.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Create ripple effect
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+        position: fixed;
+        left: ${centerX}px;
+        top: ${centerY}px;
+        width: 10px;
+        height: 10px;
+        border: 3px solid rgba(87, 197, 182, 0.8);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+    `;
+    
+    document.body.appendChild(ripple);
+    
+    ripple.animate([
+        { 
+            width: '10px',
+            height: '10px',
+            opacity: 0.8 
+        },
+        { 
+            width: '100px',
+            height: '100px',
+            opacity: 0 
+        }
+    ], {
+        duration: 600,
+        easing: 'ease-out'
+    });
+    
+    // Create sparkle burst
+    for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.cssText = `
+                position: fixed;
+                left: ${centerX + (Math.random() - 0.5) * 80}px;
+                top: ${centerY + (Math.random() - 0.5) * 80}px;
+                font-size: 1.2rem;
+                pointer-events: none;
+                z-index: 9998;
+                animation: sparkleFloat 1s ease-out forwards;
+            `;
+            
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 1000);
+        }, i * 50);
+    }
+    
+    setTimeout(() => ripple.remove(), 600);
+}
+
+// Show bonus message
+function showBonusMessage(message, element) {
+    const rect = element.getBoundingClientRect();
+    const bonusText = document.createElement('div');
+    bonusText.innerHTML = message;
+    bonusText.style.cssText = `
+        position: fixed;
+        left: ${rect.left + rect.width / 2}px;
+        top: ${rect.top - 30}px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--cw-success);
+        pointer-events: none;
+        z-index: 10000;
+        text-shadow: 0 2px 4px rgba(40, 167, 69, 0.5);
+        transform: translate(-50%, -50%);
+    `;
+    
+    document.body.appendChild(bonusText);
+    
+    bonusText.animate([
+        { 
+            transform: 'translate(-50%, -50%) scale(0)',
+            opacity: 0 
+        },
+        { 
+            transform: 'translate(-50%, -80px) scale(1.2)',
+            opacity: 1 
+        },
+        { 
+            transform: 'translate(-50%, -120px) scale(1)',
+            opacity: 0 
+        }
+    ], {
+        duration: 1500,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    });
+    
+    setTimeout(() => bonusText.remove(), 1500);
+}
+
+// Initialize collectible system when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initializeCollectibleDrops, 2000); // Start after initial animations
 });
 
 // ===========================
@@ -2746,8 +3073,28 @@ function initializeQuizWithHero() {
         gameHeroClass.textContent = currentAvatarData.name;
     }
     
+    // Initialize score display
+    updateScoreDisplay();
+    
     // Start the quiz
     startQuiz();
+}
+
+// Start the quiz game
+function startQuiz() {
+    // Reset game state
+    gameState.currentQuestion = 0;
+    gameState.score = 0;
+    gameState.answers = [];
+    
+    // Update displays
+    updateScoreDisplay();
+    
+    // Load first question
+    loadQuestion();
+    
+    // Play start sound
+    playSound('success');
 }
 
 // Enhanced start game function for wireframe flow
