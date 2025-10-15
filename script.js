@@ -1643,6 +1643,238 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ===========================
+// MOBILE & RESPONSIVE OPTIMIZATIONS
+// ===========================
+
+// Detect mobile device and screen size
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isTablet = /iPad|Android|Tablet/i.test(navigator.userAgent) && window.innerWidth >= 768;
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// Responsive utilities
+class ResponsiveManager {
+    constructor() {
+        this.breakpoints = {
+            mobile: 480,
+            tablet: 768,
+            desktop: 1024
+        };
+        this.currentBreakpoint = this.getCurrentBreakpoint();
+        this.initializeResponsiveFeatures();
+    }
+
+    getCurrentBreakpoint() {
+        const width = window.innerWidth;
+        if (width <= this.breakpoints.mobile) return 'mobile';
+        if (width <= this.breakpoints.tablet) return 'tablet';
+        return 'desktop';
+    }
+
+    initializeResponsiveFeatures() {
+        // Add device class to body
+        document.body.classList.add(this.currentBreakpoint);
+        if (isMobile) document.body.classList.add('mobile-device');
+        if (isTablet) document.body.classList.add('tablet-device');
+        if (isTouchDevice) document.body.classList.add('touch-device');
+
+        // Handle window resize
+        window.addEventListener('resize', this.debounce(() => {
+            this.handleResize();
+        }, 250));
+
+        // Optimize for mobile performance
+        if (isMobile || isTouchDevice) {
+            this.optimizeForMobile();
+        }
+
+        // Handle orientation changes
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => this.handleOrientationChange(), 100);
+        });
+    }
+
+    handleResize() {
+        const newBreakpoint = this.getCurrentBreakpoint();
+        if (newBreakpoint !== this.currentBreakpoint) {
+            document.body.classList.remove(this.currentBreakpoint);
+            document.body.classList.add(newBreakpoint);
+            this.currentBreakpoint = newBreakpoint;
+            this.adjustLayoutForBreakpoint(newBreakpoint);
+        }
+    }
+
+    handleOrientationChange() {
+        // Adjust collectible drops for new orientation
+        if (collectibleDrops) {
+            collectibleDrops.forEach(drop => {
+                const x = Math.random() * (window.innerWidth - 60) + 30;
+                const y = Math.random() * (window.innerHeight - 60) + 30;
+                drop.style.left = x + 'px';
+                drop.style.top = y + 'px';
+            });
+        }
+
+        // Recalculate particle positions
+        if (window.particlesJS) {
+            window.particlesJS.load('particles-js', 'particles.json');
+        }
+    }
+
+    optimizeForMobile() {
+        // Reduce particle count on mobile
+        const particleContainer = document.getElementById('particles-js');
+        if (particleContainer) {
+            particleContainer.style.opacity = '0.3';
+        }
+
+        // Reduce collectible drop spawn rate on mobile
+        if (this.currentBreakpoint === 'mobile') {
+            // Limit collectibles to 2 max instead of 3
+            maxCollectibleDrops = 2;
+        }
+
+        // Add touch-friendly enhancements
+        this.addTouchEnhancements();
+    }
+
+    addTouchEnhancements() {
+        // Add touch feedback to interactive elements
+        const touchElements = document.querySelectorAll('.answer-btn, .avatar-option, .cw-primary-btn, .cw-secondary-btn');
+        
+        touchElements.forEach(element => {
+            element.addEventListener('touchstart', (e) => {
+                element.style.transform = 'scale(0.95)';
+                element.style.transition = 'transform 0.1s ease';
+            });
+
+            element.addEventListener('touchend', (e) => {
+                setTimeout(() => {
+                    element.style.transform = '';
+                    element.style.transition = '';
+                }, 100);
+            });
+        });
+
+        // Prevent double-tap zoom on specific elements
+        const preventZoomElements = document.querySelectorAll('.water-drop-collectible, .answer-btn');
+        preventZoomElements.forEach(element => {
+            element.addEventListener('touchend', (e) => {
+                e.preventDefault();
+            });
+        });
+    }
+
+    adjustLayoutForBreakpoint(breakpoint) {
+        // Adjust collectible drop sizes
+        const drops = document.querySelectorAll('.water-drop-collectible');
+        drops.forEach(drop => {
+            if (breakpoint === 'mobile') {
+                drop.style.fontSize = '1.5rem';
+            } else if (breakpoint === 'tablet') {
+                drop.style.fontSize = '1.8rem';
+            } else {
+                drop.style.fontSize = '2rem';
+            }
+        });
+
+        // Adjust animation intensities
+        if (breakpoint === 'mobile') {
+            // Reduce animation complexity on mobile
+            document.documentElement.style.setProperty('--animation-scale', '0.7');
+        } else {
+            document.documentElement.style.setProperty('--animation-scale', '1');
+        }
+    }
+
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+}
+
+// Enhanced collectible system with mobile optimizations
+let maxCollectibleDrops = 3;
+
+// Modify createCollectibleDrop for mobile optimization
+function createCollectibleDropMobile() {
+    if (collectibleDrops.length >= maxCollectibleDrops) return;
+    
+    const drop = document.createElement('div');
+    drop.className = 'water-drop-collectible';
+    drop.innerHTML = '💧';
+    
+    // Mobile-optimized positioning (avoid edges)
+    const margin = window.innerWidth <= 480 ? 60 : 30;
+    const x = Math.random() * (window.innerWidth - margin * 2) + margin;
+    const y = Math.random() * (window.innerHeight - margin * 2) + margin;
+    
+    drop.style.left = x + 'px';
+    drop.style.top = y + 'px';
+    
+    // Enhanced touch handling
+    if (isTouchDevice) {
+        drop.style.padding = '10px';
+        drop.style.borderRadius = '50%';
+        drop.style.background = 'rgba(87, 197, 182, 0.1)';
+        
+        // Touch events
+        drop.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            drop.style.transform = 'scale(1.2)';
+        });
+        
+        drop.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            collectDrop(drop);
+        });
+    }
+    
+    // Click handler for desktop
+    drop.onclick = () => collectDrop(drop);
+    
+    const container = document.getElementById('collectible-drops');
+    if (container) {
+        container.appendChild(drop);
+        collectibleDrops.push(drop);
+        
+        // Mobile-optimized timeout
+        const timeout = window.innerWidth <= 480 ? 12000 : 15000;
+        setTimeout(() => {
+            if (drop.parentNode) {
+                removeDrop(drop);
+            }
+        }, timeout);
+    }
+}
+
+// Initialize responsive manager
+const responsiveManager = new ResponsiveManager();
+
+// Performance optimization for mobile
+if (isMobile) {
+    // Reduce animation frequency
+    document.addEventListener('DOMContentLoaded', () => {
+        const style = document.createElement('style');
+        style.textContent = `
+            .water-droplet {
+                animation-duration: 12s !important;
+            }
+            .floating-droplets .water-droplet:nth-child(even) {
+                display: none;
+            }
+        `;
+        document.head.appendChild(style);
+    });
+}
+
+// ===========================
 // INTERACTIVE COLLECTIBLE SYSTEM
 // ===========================
 
@@ -1653,14 +1885,23 @@ let collectibleDrops = [];
 // Initialize collectible water drops system
 function initializeCollectibleDrops() {
     // Create initial drops on welcome screen
-    createCollectibleDrop();
+    if (isMobile || isTouchDevice) {
+        createCollectibleDropMobile();
+    } else {
+        createCollectibleDrop();
+    }
     
-    // Create new drops periodically
+    // Create new drops periodically with responsive timing
+    const interval = window.innerWidth <= 480 ? 7000 : 5000;
     setInterval(() => {
-        if (collectibleDrops.length < 3) { // Max 3 drops at a time
-            createCollectibleDrop();
+        if (collectibleDrops.length < maxCollectibleDrops) {
+            if (isMobile || isTouchDevice) {
+                createCollectibleDropMobile();
+            } else {
+                createCollectibleDrop();
+            }
         }
-    }, 5000); // New drop every 5 seconds
+    }, interval);
 }
 
 // Create a single collectible water drop
