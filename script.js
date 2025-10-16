@@ -19,82 +19,74 @@ const achievements = {
     },
     'perfect_streak': {
         name: '🌟 Perfect Flow',
-        description: 'Answer all questions correctly',
-        unlocked: false,
-        celebration: true
-    },
-    'knowledge_seeker': {
-        name: '📚 Knowledge Seeker',
-        description: 'Read all explanation texts',
-        unlocked: false,
-        celebration: false
-    },
-    'charity_champion': {
-        name: '🏆 charity:water Champion',
-        description: 'Complete the entire quiz',
-        unlocked: false,
-        celebration: true
-    },
-    'speed_learner': {
-        name: '⚡ Quick Thinker',
-        description: 'Complete quiz in under 5 minutes',
-        unlocked: false,
-        celebration: true
-    },
-    'explorer': {
-        name: '🗺️ Water Explorer',
-        description: 'Try different character classes',
-        unlocked: false,
-        celebration: false
+        // Simulate real-time impact numbers
+        const peopleServed = document.getElementById('people-served');
+        const projectsFunded = document.getElementById('projects-funded');
+
+        if (peopleServed) {
+            animateNumber(peopleServed, 0, 1234567, 3000);
+        }
+
+        if (projectsFunded) {
+            animateNumber(projectsFunded, 0, 12045, 3000);
+        }
     }
-};
 
-// Power-Up System
-const powerUps = {
-    'hint_vision': {
-        name: '👁️ Hint Vision',
-        description: 'Reveals if an answer is correct or incorrect',
-        uses: 2,
-        unlockLevel: 2
-    },
-    'double_xp': {
-        name: '⭐ Double XP',
-        description: 'Next correct answer gives double experience',
-        uses: 1,
-        unlockLevel: 3
-    },
-    'wisdom_boost': {
-        name: '🧠 Wisdom Boost',
-        description: 'Get a helpful hint about the question',
-        uses: 3,
-        unlockLevel: 1
+    function animateNumber(element, start, end, duration) {
+        const range = end - start;
+        const minTimer = 50;
+        const stepTime = Math.abs(Math.floor(duration / (range || 1)));
+        const timer = Math.max(stepTime, minTimer);
+
+        const startTime = Date.now();
+
+        function run() {
+            const now = Date.now();
+            const progress = Math.min((now - startTime) / duration, 1);
+            const value = Math.round(start + (end - start) * progress);
+            element.textContent = value.toLocaleString();
+
+            if (progress < 1) {
+                setTimeout(run, timer);
+            } else {
+                try { element.style.animation = 'counter-celebrate 0.5s ease-out'; } catch(e) {}
+            }
+        }
+
+        run();
     }
-};
 
-// Streak System
-let gameStreak = {
-    current: 0,
-    best: 0,
-    multiplier: 1
-};
+    // Initialize spectacular effects when page loads
+    function initSpectacularEffects() {
+        // Start counter animations
+        setTimeout(animateCounterNumbers, 1000);
 
-// Interactive Stories System
-const impactStories = [
-    {
-        character: '👩‍🌾',
-        name: 'Maria from Ethiopia',
-        story: 'Maria used to walk 6 hours every day to collect water for her family. Now, with a charity:water well in her village, she has time to tend her crops and send her children to school.',
-        impact: 'Time saved: 6 hours per day',
-        stats: '1 well = 650 people served'
-    },
-    {
-        character: '👦',
-        name: 'James from Uganda',
-        story: 'Before the well, James missed school because he had to help fetch water. Now he\'s the top student in his class and dreams of becoming a doctor.',
-        impact: 'Education unlocked',
-        stats: 'Clean water = 25% increase in school attendance'
-    },
-    {
+        // Add CSS for counter celebration
+        const style = document.createElement('style');
+        style.textContent = `@keyframes counter-celebrate { 0% { transform: scale(1); } 50% { transform: scale(1.2); color: var(--cw-yellow); } 100% { transform: scale(1); } }`;
+        document.head.appendChild(style);
+    }
+
+    // Call initialization
+    document.addEventListener('DOMContentLoaded', initSpectacularEffects);
+
+    // Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4') {
+            const answerButtons = document.querySelectorAll('.answer-btn');
+            const index = parseInt(e.key) - 1;
+            if (answerButtons[index] && !answerButtons[index].classList.contains('disabled')) {
+                answerButtons[index].click();
+            }
+        }
+
+        if (e.key === 'Enter') {
+            const continueBtn = document.querySelector('.continue-btn:not([style*="display: none"])');
+            if (continueBtn) {
+                continueBtn.click();
+            }
+        }
+    });
         character: '👩‍⚕️',
         name: 'Dr. Sarah from Kenya',
         story: 'The local clinic can now focus on healing instead of treating water-borne diseases. Infant mortality in the area dropped by 35% after the well was installed.',
@@ -127,17 +119,7 @@ function showRandomStory() {
     `;
     
     showScreen('story-screen');
-    effectsSystem.glowPulse(document.querySelector('.story-card'), getBrandColor('--cw-yellow', '#FFC907'));
-}
-
-// Helper to read CSS variables (brand tokens) from JS
-function getBrandColor(varName, fallback) {
-    try {
-        const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-        return val || fallback;
-    } catch (e) {
-        return fallback;
-    }
+    effectsSystem.glowPulse(document.querySelector('.story-card'), '#FFC907');
 }
 
 function continueFromStory() {
@@ -309,7 +291,7 @@ function usePowerUp(powerUpId) {
     }
     
     initializePowerUps(); // Refresh display
-    effectsSystem.glowPulse(document.getElementById('powerupPanel'), getBrandColor('--cw-yellow', '#FFC907'));
+    effectsSystem.glowPulse(document.getElementById('powerupPanel'), '#FFC907');
 }
 
 function activateHintVision() {
@@ -474,43 +456,42 @@ const effectsSystem = {
         },
 
         // Enhanced fireworks with charity:water brand colors
-        createFireworks() {
-            const charityWaterColors = [
+        createFireworks(count = 12) {
+            const colors = [
                 getBrandColor('--cw-yellow', '#FFC907'),
                 getBrandColor('--cw-blue', '#0074D9'),
                 getBrandColor('--cw-success', '#28A745'),
                 getBrandColor('--cw-yellow-light', '#FFF4CC'),
-                getBrandColor('--cw-blue-light', '#E6F3FF'),
-                getBrandColor('--cw-yellow-dark', '#E6B506'),
-                getBrandColor('--cw-blue-dark', '#005BA6')
+                getBrandColor('--cw-blue-light', '#E6F3FF')
             ];
-            
-            for (let i = 0; i < 15; i++) {
+            const max = Math.min(count, window.innerWidth <= 480 ? 8 : 20);
+            for (let i = 0; i < max; i++) {
                 setTimeout(() => {
                     const firework = document.createElement('div');
-                    const color = charityWaterColors[Math.floor(Math.random() * charityWaterColors.length)];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
                     firework.className = 'firework';
+                    const size = Math.random() * 8 + 6;
                     firework.style.cssText = `
                         position: fixed;
-                        width: 6px;
-                        height: 6px;
+                        width: ${size}px;
+                        height: ${size}px;
                         background: ${color};
                         border-radius: 50%;
                         left: ${Math.random() * window.innerWidth}px;
-                        top: ${Math.random() * window.innerHeight}px;
+                        top: ${Math.random() * (window.innerHeight * 0.6)}px;
                         z-index: 10000;
-                        box-shadow: 0 0 10px ${color};
-                        animation: fireworkBurst 1.5s ease-out forwards;
+                        box-shadow: 0 0 16px ${color};
+                        animation: fireworkBurst ${1.2 + Math.random() * 0.8}s ease-out forwards;
                     `;
                     document.body.appendChild(firework);
-                    setTimeout(() => firework.remove(), 1500);
-                }, i * 100);
+                    setTimeout(() => firework.remove(), 2000);
+                }, i * 120);
             }
         },
 
         // Enhanced confetti with charity:water brand colors
-        createConfetti() {
-            const charityWaterColors = [
+        createConfetti(count = 60) {
+            const colors = [
                 getBrandColor('--cw-yellow', '#FFC907'),
                 getBrandColor('--cw-blue', '#0074D9'),
                 '#ffffff',
@@ -518,26 +499,46 @@ const effectsSystem = {
                 getBrandColor('--cw-blue-light', '#E6F3FF'),
                 getBrandColor('--cw-success', '#28A745')
             ];
-            
-            for (let i = 0; i < 50; i++) {
+            const max = Math.min(count, window.innerWidth <= 480 ? 30 : 120);
+            for (let i = 0; i < max; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
-                    const color = charityWaterColors[Math.floor(Math.random() * charityWaterColors.length)];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const w = Math.random() * 10 + 6;
+                    const h = Math.random() * 6 + 6;
+                    const left = Math.random() * window.innerWidth;
+                    const sway = (Math.random() - 0.5) * 200;
+                    const rotation = Math.random() * 360;
                     confetti.style.cssText = `
                         position: fixed;
-                        width: ${Math.random() * 8 + 4}px;
-                        height: ${Math.random() * 8 + 4}px;
+                        width: ${w}px;
+                        height: ${h}px;
                         background: ${color};
-                        left: ${Math.random() * window.innerWidth}px;
-                        top: -10px;
+                        left: ${left}px;
+                        top: -20px;
                         z-index: 9999;
                         animation: confettiFall ${Math.random() * 3 + 2}s linear forwards;
-                        transform: rotate(${Math.random() * 360}deg);
-                        box-shadow: 0 0 4px ${color};
+                        transform: rotate(${rotation}deg);
+                        box-shadow: 0 0 6px ${color};
                     `;
                     document.body.appendChild(confetti);
-                    setTimeout(() => confetti.remove(), 5000);
-                }, i * 50);
+                    // Sway animation via JS for slight physics
+                    const duration = 2000 + Math.random() * 3000;
+                    const start = Date.now();
+                    const initialTop = -20;
+                    const endTop = window.innerHeight + 50;
+                    const swayAmp = sway;
+                    const anim = setInterval(() => {
+                        const t = (Date.now() - start) / duration;
+                        if (t >= 1) {
+                            clearInterval(anim);
+                            if (confetti.parentNode) confetti.remove();
+                            return;
+                        }
+                        confetti.style.transform = `translateX(${swayAmp * Math.sin(t * Math.PI)}px) rotate(${rotation + t * 360}deg)`;
+                        confetti.style.top = (initialTop + t * (endTop - initialTop)) + 'px';
+                    }, 16);
+                }, i * 30);
             }
         },
 
@@ -630,6 +631,16 @@ const effectsSystem = {
         }
 };
 
+// Helper to read brand CSS variables safely at runtime
+function getBrandColor(varName, fallback) {
+    try {
+        const val = getComputedStyle(document.documentElement).getPropertyValue(varName);
+        return (val && val.trim()) ? val.trim() : fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+
 // Game State Management (Enhanced)
 let gameState = {
     heroName: '',
@@ -720,7 +731,7 @@ function selectAvatar(avatarId) {
         selectedOption.getBoundingClientRect().left + selectedOption.getBoundingClientRect().width / 2,
         selectedOption.getBoundingClientRect().top + selectedOption.getBoundingClientRect().height / 2
     );
-    effectsSystem.glowPulse(selectedOption, getBrandColor('--cw-yellow', '#ffd700'));
+    effectsSystem.glowPulse(selectedOption, '#ffd700');
     effectsSystem.screenFlash();
     audioSystem.playSuccess();
     
@@ -1206,7 +1217,7 @@ function selectAnswer(selectedIndex) {
             selectedButton.getBoundingClientRect().left + selectedButton.getBoundingClientRect().width / 2,
             selectedButton.getBoundingClientRect().top + selectedButton.getBoundingClientRect().height / 2
         );
-    effectsSystem.glowPulse(selectedButton, getBrandColor('--cw-success', '#00b894'));
+        effectsSystem.glowPulse(selectedButton, '#00b894');
         
         // Add rainbow shimmer to correct answer
         selectedButton.classList.add('rainbow-shimmer');
@@ -1680,6 +1691,9 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Ensure script file ends cleanly
+
+
 // ===========================
 // MOBILE & RESPONSIVE OPTIMIZATIONS
 // ===========================
@@ -1953,19 +1967,24 @@ function createCollectibleDrop() {
         isContaminated = true;
         drop.className = 'contaminated-drop-collectible';
         drop.innerHTML = '🦠';
+        drop.setAttribute('aria-label', 'Contaminated drop. Penalty if collected.');
     } else if (rand < 0.25) {
         isPurifier = true;
         drop.className = 'purifier-drop-collectible';
         drop.innerHTML = '🧴';
+        drop.setAttribute('aria-label', 'Purifier drop. Removes penalty or grants temporary immunity.');
     } else {
         drop.className = 'water-drop-collectible';
         drop.innerHTML = '💧';
+        drop.setAttribute('aria-label', 'Collectible water drop. Grants bonus XP.');
     }
     // Random position
     const x = Math.random() * (window.innerWidth - 60) + 30;
     const y = Math.random() * (window.innerHeight - 60) + 30;
     drop.style.left = x + 'px';
     drop.style.top = y + 'px';
+    // Make focusable and keyboard accessible
+    drop.setAttribute('tabindex', '0');
     // Add click handler
     drop.onclick = () => {
         if (isContaminated) {
@@ -1976,6 +1995,13 @@ function createCollectibleDrop() {
             collectDrop(drop);
         }
     };
+    // Keyboard interaction: Enter or Space to trigger click
+    drop.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            drop.click();
+        }
+    });
 // Track if player is immune to contaminated drops
 let contaminatedImmunity = false;
 let contaminatedPenaltyStack = 0;
@@ -2154,7 +2180,7 @@ function createContaminatedEffect(drop) {
         easing: 'ease-out'
     });
     setTimeout(() => ripple.remove(), 600);
-}
+
 
 // Collect a water drop
 function collectDrop(drop) {
@@ -3050,7 +3076,7 @@ function createHoverSparkles(element) {
 }
 
 // Enhanced start game function with spectacular transition
-function startSpectacularFlow() {
+function startGame() {
     // Create epic transition effect
     createSpectacularTransition();
     
@@ -3072,15 +3098,13 @@ function startSpectacularFlow() {
 // Create spectacular transition effect
 function createSpectacularTransition() {
     const transition = document.createElement('div');
-    const g1 = getBrandColor('--cw-blue', '#0074D9');
-    const g2 = getBrandColor('--cw-yellow', '#FFC907');
     transition.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: linear-gradient(45deg, ${g1}, ${g2}, ${g1});
+        background: linear-gradient(45deg, #0074D9, #FFC907, #0074D9);
         background-size: 400% 400%;
         z-index: 99999;
         display: flex;
@@ -3266,7 +3290,7 @@ Object.assign(avatarData, {
 });
 
 // Enhanced avatar selection with wireframe effects
-function selectAvatarWireframe(avatarType) {
+function selectAvatar(avatarType) {
     // Remove previous selections
     document.querySelectorAll('.avatar-option').forEach(option => {
         option.classList.remove('selected');
@@ -3480,10 +3504,7 @@ function createEpicTransitionEffect() {
     overlay.style.left = '0';
     overlay.style.width = '100vw';
     overlay.style.height = '100vh';
-    const ov1 = getBrandColor('--cw-blue-dark', '#1A5F7A');
-    const ov2 = getBrandColor('--cw-blue-light', '#57C5B6');
-    const ov3 = getBrandColor('--cw-yellow', '#FFD700');
-    overlay.style.background = `linear-gradient(45deg, ${ov1}, ${ov2}, ${ov3})`;
+    overlay.style.background = 'linear-gradient(45deg, #1A5F7A, #57C5B6, #FFD700)';
     overlay.style.zIndex = '9999';
     overlay.style.opacity = '0';
     
@@ -3565,7 +3586,7 @@ function startQuiz() {
 }
 
 // Enhanced start game function for wireframe flow
-function startWireframeFlow() {
+function startGame() {
     // Hide welcome screen
     document.getElementById('welcome-screen').classList.remove('active');
     
@@ -3595,8 +3616,8 @@ buttonActivateStyle.textContent = `
     }
     
     .suggestion-card.selected {
-        background: linear-gradient(135deg, var(--cw-yellow), var(--cw-yellow-light));
-        border-color: var(--cw-yellow);
+        background: linear-gradient(135deg, #FFD700, #FFF4CC);
+        border-color: #FFD700;
         transform: scale(1.05);
         box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
     }
@@ -4006,3 +4027,4 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
+
