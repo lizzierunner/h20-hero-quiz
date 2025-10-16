@@ -915,8 +915,8 @@ body {
     background: var(--cw-white);
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 2px var(--cw-yellow-light);
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     padding: 40px;
     text-align: center;
     animation: slideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
