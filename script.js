@@ -127,7 +127,17 @@ function showRandomStory() {
     `;
     
     showScreen('story-screen');
-    effectsSystem.glowPulse(document.querySelector('.story-card'), '#FFC907');
+    effectsSystem.glowPulse(document.querySelector('.story-card'), getBrandColor('--cw-yellow', '#FFC907'));
+}
+
+// Helper to read CSS variables (brand tokens) from JS
+function getBrandColor(varName, fallback) {
+    try {
+        const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        return val || fallback;
+    } catch (e) {
+        return fallback;
+    }
 }
 
 function continueFromStory() {
@@ -299,7 +309,7 @@ function usePowerUp(powerUpId) {
     }
     
     initializePowerUps(); // Refresh display
-    effectsSystem.glowPulse(document.getElementById('powerupPanel'), '#FFC907');
+    effectsSystem.glowPulse(document.getElementById('powerupPanel'), getBrandColor('--cw-yellow', '#FFC907'));
 }
 
 function activateHintVision() {
@@ -465,7 +475,15 @@ const effectsSystem = {
 
         // Enhanced fireworks with charity:water brand colors
         createFireworks() {
-            const charityWaterColors = ['#FFC907', '#0074D9', '#28A745', '#FFF4CC', '#E6F3FF', '#E6B506', '#005BA6'];
+            const charityWaterColors = [
+                getBrandColor('--cw-yellow', '#FFC907'),
+                getBrandColor('--cw-blue', '#0074D9'),
+                getBrandColor('--cw-success', '#28A745'),
+                getBrandColor('--cw-yellow-light', '#FFF4CC'),
+                getBrandColor('--cw-blue-light', '#E6F3FF'),
+                getBrandColor('--cw-yellow-dark', '#E6B506'),
+                getBrandColor('--cw-blue-dark', '#005BA6')
+            ];
             
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
@@ -492,7 +510,14 @@ const effectsSystem = {
 
         // Enhanced confetti with charity:water brand colors
         createConfetti() {
-            const charityWaterColors = ['#FFC907', '#0074D9', '#ffffff', '#FFF4CC', '#E6F3FF', '#28A745'];
+            const charityWaterColors = [
+                getBrandColor('--cw-yellow', '#FFC907'),
+                getBrandColor('--cw-blue', '#0074D9'),
+                '#ffffff',
+                getBrandColor('--cw-yellow-light', '#FFF4CC'),
+                getBrandColor('--cw-blue-light', '#E6F3FF'),
+                getBrandColor('--cw-success', '#28A745')
+            ];
             
             for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
@@ -695,7 +720,7 @@ function selectAvatar(avatarId) {
         selectedOption.getBoundingClientRect().left + selectedOption.getBoundingClientRect().width / 2,
         selectedOption.getBoundingClientRect().top + selectedOption.getBoundingClientRect().height / 2
     );
-    effectsSystem.glowPulse(selectedOption, '#ffd700');
+    effectsSystem.glowPulse(selectedOption, getBrandColor('--cw-yellow', '#ffd700'));
     effectsSystem.screenFlash();
     audioSystem.playSuccess();
     
@@ -1181,7 +1206,7 @@ function selectAnswer(selectedIndex) {
             selectedButton.getBoundingClientRect().left + selectedButton.getBoundingClientRect().width / 2,
             selectedButton.getBoundingClientRect().top + selectedButton.getBoundingClientRect().height / 2
         );
-        effectsSystem.glowPulse(selectedButton, '#00b894');
+    effectsSystem.glowPulse(selectedButton, getBrandColor('--cw-success', '#00b894'));
         
         // Add rainbow shimmer to correct answer
         selectedButton.classList.add('rainbow-shimmer');
@@ -2130,7 +2155,6 @@ function createContaminatedEffect(drop) {
     });
     setTimeout(() => ripple.remove(), 600);
 }
-}
 
 // Collect a water drop
 function collectDrop(drop) {
@@ -3026,7 +3050,7 @@ function createHoverSparkles(element) {
 }
 
 // Enhanced start game function with spectacular transition
-function startGame() {
+function startSpectacularFlow() {
     // Create epic transition effect
     createSpectacularTransition();
     
@@ -3048,13 +3072,15 @@ function startGame() {
 // Create spectacular transition effect
 function createSpectacularTransition() {
     const transition = document.createElement('div');
+    const g1 = getBrandColor('--cw-blue', '#0074D9');
+    const g2 = getBrandColor('--cw-yellow', '#FFC907');
     transition.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: linear-gradient(45deg, #0074D9, #FFC907, #0074D9);
+        background: linear-gradient(45deg, ${g1}, ${g2}, ${g1});
         background-size: 400% 400%;
         z-index: 99999;
         display: flex;
@@ -3240,7 +3266,7 @@ Object.assign(avatarData, {
 });
 
 // Enhanced avatar selection with wireframe effects
-function selectAvatar(avatarType) {
+function selectAvatarWireframe(avatarType) {
     // Remove previous selections
     document.querySelectorAll('.avatar-option').forEach(option => {
         option.classList.remove('selected');
@@ -3454,7 +3480,10 @@ function createEpicTransitionEffect() {
     overlay.style.left = '0';
     overlay.style.width = '100vw';
     overlay.style.height = '100vh';
-    overlay.style.background = 'linear-gradient(45deg, #1A5F7A, #57C5B6, #FFD700)';
+    const ov1 = getBrandColor('--cw-blue-dark', '#1A5F7A');
+    const ov2 = getBrandColor('--cw-blue-light', '#57C5B6');
+    const ov3 = getBrandColor('--cw-yellow', '#FFD700');
+    overlay.style.background = `linear-gradient(45deg, ${ov1}, ${ov2}, ${ov3})`;
     overlay.style.zIndex = '9999';
     overlay.style.opacity = '0';
     
@@ -3536,7 +3565,7 @@ function startQuiz() {
 }
 
 // Enhanced start game function for wireframe flow
-function startGame() {
+function startWireframeFlow() {
     // Hide welcome screen
     document.getElementById('welcome-screen').classList.remove('active');
     
@@ -3566,8 +3595,8 @@ buttonActivateStyle.textContent = `
     }
     
     .suggestion-card.selected {
-        background: linear-gradient(135deg, #FFD700, #FFF4CC);
-        border-color: #FFD700;
+        background: linear-gradient(135deg, var(--cw-yellow), var(--cw-yellow-light));
+        border-color: var(--cw-yellow);
         transform: scale(1.05);
         box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
     }
