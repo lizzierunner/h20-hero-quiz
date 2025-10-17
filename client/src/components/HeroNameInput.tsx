@@ -14,10 +14,10 @@ export default function HeroNameInput({ heroName, onNameChange, onContinue }: He
     <div className="space-y-6">
       <div className="text-center space-y-2">
         <h2 className="font-display text-3xl font-bold text-foreground">
-          📝 Choose Your Hero Name
+          Choose Your Name
         </h2>
         <p className="text-muted-foreground">
-          What shall we call you on your water-saving journey?
+          How would you like to be called?
         </p>
       </div>
 
@@ -60,7 +60,7 @@ export default function HeroNameInput({ heroName, onNameChange, onContinue }: He
           disabled={!heroName.trim()}
           data-testid="button-continue"
         >
-          Continue ➡️
+          Continue
         </Button>
       </div>
     </div>

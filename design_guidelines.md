@@ -1,163 +1,220 @@
 # H2O Hero Quiz - Design Guidelines
+## Aligned with charity:water Brand Standards
 
-## Design Approach: Reference-Based with Gamification
+## Design Philosophy: Hope, Clarity, & Inspiration
 
-**Primary References:**
-- Duolingo: Gamified progression, character-based UI, achievement system
-- charity:water's brand: Mission-driven, emotional storytelling, clean aesthetics
-- Kahoot: Playful quiz mechanics, vibrant interactions
-
-**Core Principle:** Create an engaging, game-like experience that balances playfulness with the serious mission of water access advocacy. The design should feel approachable and fun while maintaining credibility for the charitable cause.
+**Core Principles from charity:water Brand Guide:**
+- **Inspirational above all:** Every interaction should feel exciting and filled with possibility
+- **Clear message and design:** Direct, understandable language with spacious visuals
+- **Focus on hope, not guilt:** Show dignity and opportunity, not despair
+- **Professional photography:** Real people, real stories, authentic moments
+- **Clean and uncluttered:** Let content breathe, avoid visual noise
 
 ---
 
 ## Color Palette
 
-**Primary Colors:**
-- Deep Ocean Blue: 210 85% 25% (primary brand, headers, CTAs)
-- Aqua Bright: 190 75% 55% (accents, highlights, progress indicators)
-- Wave Cyan: 195 85% 65% (secondary actions, badges)
+**Primary Colors (charity:water Inspired):**
+- Jerry Can Yellow: 45 100% 64% (PRIMARY accent - represents hope and action)
+- Deep Ocean Blue: 210 85% 25% (brand foundation, headers)
+- Pure Water Cyan: 190 65% 55% (water clarity, highlights)
 
 **Supporting Colors:**
-- Success Green: 165 70% 45% (correct answers, achievements)
-- Coral Alert: 15 80% 60% (incorrect answers, alerts)
-- Cloud White: 0 0% 98% (backgrounds, cards)
-- Deep Navy: 215 65% 15% (text, dark mode base)
+- Success Green: 142 71% 45% (correct answers, positive impact)
+- Warm Coral: 15 80% 60% (gentle alerts, important info)
+- Cloud White: 210 20% 98% (backgrounds, breathing room)
+- Deep Navy: 215 30% 20% (text, strong contrast)
 
-**Gradients:**
-- Hero: Ocean Blue to Aqua Bright (diagonal, top-left to bottom-right)
-- Achievement cards: Subtle radial gradient from center
+**Usage Rules:**
+- Jerry Can Yellow: Primary CTAs, achievements, key highlights
+- Ocean Blue: Headers, navigation, brand presence
+- Cyan: Secondary actions, progress indicators
+- Always ensure WCAG AA contrast (4.5:1 minimum)
 
 ---
 
 ## Typography
 
 **Font Families:**
-- Primary: 'Poppins' (headings, hero names, stats) - Bold, rounded, friendly
-- Secondary: 'Inter' (body text, questions, descriptions) - Clean, readable
+- Primary: 'Poppins' (headings - clear, friendly, bold)
+- Secondary: 'Inter' (body - readable, professional)
 
-**Scale:**
-- Hero Headline: 4xl to 6xl, bold (900)
-- Section Headers: 3xl to 4xl, semibold (600)
-- Character Names: 2xl, bold (700)
-- Quiz Questions: xl to 2xl, medium (500)
-- Body Text: base to lg, regular (400)
-- Stats/Numbers: 3xl to 5xl, extrabold (800) with tabular-nums
+**Hierarchy:**
+- Page Headlines: 4xl to 5xl, bold (700) - inspiring but not overwhelming
+- Section Headers: 2xl to 3xl, semibold (600) - clear hierarchy
+- Body Text: base to lg, regular (400) - easy to read
+- Stats/Impact Numbers: 4xl, bold (700) - emphasize real impact
+
+**Key Rule:** Text should be clear and direct. Avoid excessive decoration.
 
 ---
 
 ## Layout System
 
-**Spacing Primitives:** Tailwind units of 2, 4, 6, 8, 12, 16, 20, 24
-- Tight spacing: 2-4 (icons, badges)
-- Component padding: 6-8 (cards, buttons)
-- Section spacing: 12-20 (vertical rhythm)
-- Page margins: 16-24 (container padding)
+**Spacious Design:**
+- Generous white space between sections (16-24 units)
+- Card padding: 8-12 (give content room to breathe)
+- Section margins: 20-32 (create clear visual breaks)
+- Max content width: 1200px (readability and focus)
 
 **Grid Strategy:**
-- Character Selection: 4-column grid (lg), 2-column (md), 1-column (mobile)
-- Quiz Layout: Single column centered (max-w-3xl)
-- Results Achievements: 3-column grid (lg), 2-column (md), 1-column (mobile)
-- Impact Stories: Full-width cards with 2-column internal layout
+- Avatar Selection: 4-column grid (lg), 2-column (md), 1-column (mobile)
+- Quiz Layout: Centered single column (max-w-2xl)
+- Impact Stories: Full-width with side-by-side layout
+- Results: Clean vertical flow with generous spacing
 
 ---
 
-## Component Library
+## Component Design Principles
+
+### Minimal Decoration
+- **NO excessive emojis** - Use sparingly and purposefully
+- **NO cluttered interfaces** - Every element must earn its place
+- **YES to clean cards** - Simple borders or subtle shadows only
+- **YES to clear hierarchy** - Size, weight, and spacing create order
 
 ### Navigation & Structure
-- Fixed top navigation with character avatar, progress bar, and XP counter
-- Floating character card (persistent left sidebar on desktop, collapsible on mobile)
-- Bottom action bar for mobile quiz navigation
+- Clean top navigation with charity:water partnership acknowledgment
+- Progress indicators: Simple, clean progress bars (not overly decorated)
+- Character info: Minimal sidebar with essential stats only
 
-### Hero Section (Landing)
-- Full-viewport hero with animated water ripple background image
-- Centered mission statement with bold typography
-- Three-stat horizontal display (771M people, 2.2B people, etc.)
-- Large primary CTA button "Start Your Mission" with glow effect
+### Hero Section
+- Clean, powerful headline
+- Clear mission statement (2-3 sentences max)
+- Real impact statistics (clean number displays)
+- Single, prominent CTA button
+- Professional background image or clean gradient
 
-### Character Creation Flow
-- Step indicator (1/3, 2/3, 3/3) with line connectors
-- Avatar grid: Large clickable cards (8 options) with hover scale and selected state (border + shadow)
-- Name input: Large text field with preset name chips below (pill-shaped, clickable)
-- Confirmation: Full character card preview with stats initialization
+### Character Creation
+- Simple step indicators (1/3, 2/3, 3/3)
+- Clean avatar cards with hover states (no excessive decoration)
+- Direct name input with minimal suggestions
+- Confirmation shows character clearly without clutter
 
 ### Quiz Interface
-- Question card: Elevated white card with question number, progress bar, question text
-- Answer options: Large clickable cards (4 options) with hover lift, selected border, and result states (green/red)
-- Character sidebar: Persistent card showing avatar, name, level, XP with circular progress ring
-- Power-ups: Floating badges (top-right) for hints, double XP, second chance
+- Clean question cards with ample white space
+- Clear, readable question text
+- Simple answer buttons with obvious selection states
+- Minimal but effective feedback (green/red for correct/incorrect)
 
-### Impact Story Cards
-- Full-width section between questions
-- Split layout: Image left (60%), story text right (40%)
-- Emotional photography showcasing real beneficiaries
-- "Continue Your Mission" CTA at bottom
+### Impact Stories
+**Following charity:water Photo Guidelines:**
+- Use real photography showing people with dignity
+- Never place text over faces or bodies
+- Ensure text has good contrast and legibility
+- Choose images with negative space for text placement
+- Focus on hope and possibility, not guilt
+- Show both challenges and solutions
 
 ### Results Page
-- Centered score circle (large, animated) with final percentage
-- Character card evolution showing level progression
-- Achievement grid: Cards with icons, titles, descriptions (unlock animation)
-- Ranking badge: Large centered emblem with tier title
-- Impact statistics: Three-column stat cards
-- Social sharing: Horizontal button row (Twitter, Facebook, Copy)
-- Secondary actions: "Play Again" and "Learn More" buttons
-
-### Micro-Interactions
-- Button states: Subtle scale on hover (scale-105), pressed state (scale-95)
-- Card reveals: Staggered fade-in-up animations
-- Progress bars: Smooth width transitions with gradient fills
-- Achievement unlocks: Modal with confetti particle effect
-- Water droplet cursor trail on character selection (desktop only)
+- Clear score display (not overly decorated)
+- Simple achievement cards
+- Impact statistics presented cleanly
+- Prominent "Take Action" or "Learn More" CTAs
+- Social sharing options (clean, professional)
 
 ---
 
-## Images
+## Photography Standards
 
-**Hero Section:**
-- Large hero image: Aerial view of clean water source or community gathering around new water well, overlaid with subtle blue gradient for text contrast
-- Size: Full viewport width, 70vh height
+**Per charity:water Brand Guide:**
 
-**Impact Story Cards:**
-- 4-6 authentic photographs showing beneficiaries, water infrastructure, community impact
-- Aspect ratio: 3:2 or 4:3
-- Style: Documentary photography, warm tones, human connection
+1. **Dignity First**
+   - Show people as subjects, not objects
+   - Capture authentic moments, not staged poverty
+   - Focus on hope, opportunity, and solutions
 
-**Character Avatars:**
-- Illustrated icons (not photos) for 8 hero types
-- Style: Playful, emoji-like but detailed
-- Size: 120px × 120px at 2x resolution
+2. **Placement Rules**
+   - Never place text or logos over faces
+   - Use negative space (sky, ground) for text
+   - Ensure legibility on all backgrounds
 
-**Achievement Badges:**
-- Custom illustrated icons for each achievement tier
-- Style: Medal/badge design with water motifs
-- Size: 80px × 80px
+3. **Clean vs. Dirty Water**
+   - Show the transformation story
+   - Pair dirty water sources with clean water solutions
+   - Never edit clean water to look dirty
 
-**Background Patterns:**
-- Subtle water ripple SVG pattern for hero background
-- Gentle wave pattern for section dividers
-
----
-
-## Accessibility & Dark Mode
-
-- Maintain WCAG AA contrast ratios (4.5:1 for text)
-- Dark mode: Deep Navy base with Aqua Bright accents, reduced saturation for comfort
-- Focus states: 3px solid rings with 2px offset
-- All interactive elements: Minimum 44px touch target
-- Screen reader labels for all gamification elements (XP, levels, progress)
+4. **Style**
+   - Professional documentary photography
+   - Warm, authentic tones
+   - Human connection and community focus
 
 ---
 
-## Animation Budget
+## Interaction Design
 
-**Use Sparingly:**
-- Page transitions: Simple fade (200ms)
-- Achievement unlocks: One celebration animation
-- Progress updates: Smooth counter animations
-- Quiz result reveals: Quick color transition (300ms)
+**Subtle, Professional Interactions:**
+- Hover: Gentle lift (2-4px) or subtle scale (1.02)
+- Press: Slight scale down (0.98)
+- Transitions: Smooth but quick (200-300ms)
+- Animations: Purposeful, not decorative
 
 **Avoid:**
-- Scroll-triggered animations
-- Parallax effects
-- Continuous background animations
-- Auto-playing carousels
+- Excessive animations
+- Distracting particle effects
+- Over-the-top celebrations
+- Continuous background motion
+
+---
+
+## Logo & Branding
+
+**charity:water Partnership:**
+- Include charity:water logo or partnership acknowledgment
+- Follow logo placement guidelines (never over faces)
+- Use Jerry Can yellow as accent to tie to brand
+- Maintain "Official Partner" or "In Support of" language
+
+**Logo Rules:**
+- Jerry Can mark: Keep proportions exact
+- Full logo: Name always on single line
+- Placement: White or black backgrounds preferred
+- Legibility: Always ensure logo is clearly visible
+
+---
+
+## Accessibility
+
+- WCAG AA minimum (4.5:1 contrast)
+- All interactive elements: 44px minimum touch target
+- Focus states: Clear 3px rings with offset
+- Screen reader labels on all interactive elements
+- Keyboard navigation fully supported
+
+---
+
+## Tone & Messaging
+
+**Voice:**
+- Inspirational and empowering (not preachy)
+- Clear and direct (not complicated)
+- Hopeful and possibility-focused (not guilt-driven)
+- Educational and engaging (not boring)
+
+**Key Messages:**
+- Every action creates real impact
+- Water changes everything
+- You have the power to help
+- Hope and solutions exist
+
+---
+
+## What to Avoid
+
+❌ Excessive emojis cluttering the interface  
+❌ Over-gamification that trivializes the mission  
+❌ Guilt-based messaging or exploitative imagery  
+❌ Text covering faces in photography  
+❌ Cluttered, cramped layouts  
+❌ Distracting animations or effects  
+❌ Unclear or confusing navigation  
+
+## What to Embrace
+
+✅ Clean, spacious design  
+✅ Professional photography showing dignity  
+✅ Hope-focused messaging  
+✅ Clear call-to-actions  
+✅ Real impact statistics  
+✅ Simple, effective interactions  
+✅ Accessible, inclusive design  

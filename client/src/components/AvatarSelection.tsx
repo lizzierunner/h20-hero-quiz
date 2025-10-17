@@ -15,10 +15,10 @@ export default function AvatarSelection({ onSelect, selectedAvatarId }: AvatarSe
     <div className="space-y-6">
       <div className="text-center space-y-2">
         <h2 className="font-display text-3xl font-bold text-foreground">
-          🎭 Choose Your Avatar
+          Choose Your Avatar
         </h2>
         <p className="text-muted-foreground">
-          Select the hero that represents your water-saving spirit!
+          Select an avatar to represent you on your learning journey
         </p>
       </div>
 

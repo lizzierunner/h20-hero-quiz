@@ -29,10 +29,10 @@ export default function QuizResults({
   const percentage = Math.round((score / totalQuestions) * 100);
   
   const getRanking = () => {
-    if (percentage >= 90) return { title: "Water Champion", emoji: "🏆", color: "text-chart-4" };
-    if (percentage >= 70) return { title: "Water Guardian", emoji: "⭐", color: "text-accent" };
-    if (percentage >= 50) return { title: "Water Warrior", emoji: "💪", color: "text-secondary" };
-    return { title: "Water Explorer", emoji: "🌊", color: "text-primary" };
+    if (percentage >= 90) return { title: "Water Champion", icon: Trophy, color: "text-chart-4" };
+    if (percentage >= 70) return { title: "Water Guardian", icon: Target, color: "text-accent" };
+    if (percentage >= 50) return { title: "Water Warrior", icon: Zap, color: "text-secondary" };
+    return { title: "Water Explorer", icon: Trophy, color: "text-primary" };
   };
 
   const ranking = getRanking();
@@ -42,7 +42,7 @@ export default function QuizResults({
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center space-y-4">
           <h1 className="font-display text-5xl font-black text-foreground">
-            🎉 Mission Complete!
+            Quiz Complete!
           </h1>
           <div className="text-7xl font-display font-black text-primary" data-testid="text-final-score">
             {score}/{totalQuestions}
@@ -67,8 +67,8 @@ export default function QuizResults({
 
           <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg p-6 space-y-4">
             <div className="text-center space-y-2">
-              <div className={`text-5xl ${ranking.color}`}>
-                {ranking.emoji}
+              <div className="flex justify-center">
+                <ranking.icon className={`w-16 h-16 ${ranking.color}`} />
               </div>
               <h3 className="font-display text-2xl font-bold text-foreground">
                 {ranking.title}
@@ -111,20 +111,20 @@ export default function QuizResults({
 
         <Card className="p-6 space-y-4 bg-gradient-to-br from-primary/5 to-accent/5">
           <h3 className="font-display text-xl font-bold text-foreground text-center">
-            📢 Share Your Achievement
+            Share Your Results
           </h3>
           <p className="text-center text-muted-foreground text-sm">
-            Tell the world about your water knowledge and help spread awareness!
+            Share your knowledge and help spread awareness about the global water crisis
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button variant="outline" size="lg" className="hover-elevate" data-testid="button-share-twitter">
-              🐦 Share on Twitter
+              Share on Twitter
             </Button>
             <Button variant="outline" size="lg" className="hover-elevate" data-testid="button-share-facebook">
-              📘 Share on Facebook
+              Share on Facebook
             </Button>
             <Button variant="outline" size="lg" className="hover-elevate" data-testid="button-copy-result">
-              📋 Copy Result
+              Copy Result
             </Button>
           </div>
         </Card>

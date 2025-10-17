@@ -18,10 +18,10 @@ export default function HeroConfirmation({ avatarId, heroName, onBack, onStartMi
     <div className="space-y-8">
       <div className="text-center space-y-2">
         <h2 className="font-display text-3xl font-bold text-foreground">
-          ✨ Your H2O Hero is Ready!
+          You're Ready to Start
         </h2>
         <p className="text-muted-foreground">
-          Review your hero before embarking on your mission
+          Review your profile before beginning the quiz
         </p>
       </div>
 
@@ -57,13 +57,12 @@ export default function HeroConfirmation({ avatarId, heroName, onBack, onStartMi
         </div>
 
         <div className="bg-muted/50 rounded-md p-4 space-y-2">
-          <h4 className="font-display font-semibold text-foreground flex items-center gap-2">
-            🎯 Your Mission
+          <h4 className="font-display font-semibold text-foreground">
+            About This Quiz
           </h4>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            As a charity:water hero, you'll answer questions about global water access, 
-            learn incredible facts, and help raise awareness about the water crisis. 
-            Every correct answer brings you closer to becoming a true H2O Hero!
+            Test your knowledge about global water access and learn how clean water transforms lives. 
+            Each question explores a different aspect of the water crisis and charity:water's mission to end it.
           </p>
         </div>
 
@@ -84,8 +83,7 @@ export default function HeroConfirmation({ avatarId, heroName, onBack, onStartMi
             className="flex-1 font-display font-semibold"
             data-testid="button-start-mission"
           >
-            Start Mission!
-            <Rocket className="w-4 h-4 ml-2" />
+            Start Quiz
           </Button>
         </div>
       </Card>

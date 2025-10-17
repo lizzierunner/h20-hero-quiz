@@ -21,7 +21,7 @@ export default function ImpactStory({ title, story, location, icon, onContinue }
           
           <div className="space-y-2">
             <h2 className="font-display text-3xl font-bold text-foreground">
-              💧 Water Impact Story
+              Real Impact Story
             </h2>
             <p className="text-sm font-medium text-muted-foreground">
               {location}
@@ -46,7 +46,7 @@ export default function ImpactStory({ title, story, location, icon, onContinue }
             className="font-display font-semibold px-8"
             data-testid="button-continue-mission"
           >
-            Continue Your Mission 🚀
+            Continue Quiz
           </Button>
         </div>
       </Card>
